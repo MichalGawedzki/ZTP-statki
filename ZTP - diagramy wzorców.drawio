@@ -1,6 +1,6 @@
-<mxfile host="www.draw.io" modified="2019-12-10T20:16:41.030Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0" etag="GA6gSvvfN2fafLv6KhnC" version="12.3.9" type="github" pages="1">
+<mxfile host="www.draw.io" modified="2019-12-11T00:35:06.689Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36" etag="1E4UxUwqf-ZystIRfc4V" version="12.3.9" type="github" pages="1">
   <diagram id="5fqncZ3Ex4PDNIBZFKyr" name="Strona-1">
-    <mxGraphModel dx="4981" dy="2085" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="5662" dy="2238" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
@@ -546,7 +546,7 @@
         <mxCell id="8Ua6jY4bID5snQ9ehEWF-218" value="# frequency: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="8Ua6jY4bID5snQ9ehEWF-69" vertex="1">
           <mxGeometry y="52" width="160" height="26" as="geometry"/>
         </mxCell>
-        <mxCell id="UFyMMZuLHipoKUuzxxPV-22" value="- bullet: Bullet" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="8Ua6jY4bID5snQ9ehEWF-69" vertex="1">
+        <mxCell id="UFyMMZuLHipoKUuzxxPV-22" value="# bullet: Bullet" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="8Ua6jY4bID5snQ9ehEWF-69" vertex="1">
           <mxGeometry y="78" width="160" height="26" as="geometry"/>
         </mxCell>
         <mxCell id="8Ua6jY4bID5snQ9ehEWF-71" value="- image: Image" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="8Ua6jY4bID5snQ9ehEWF-69" vertex="1">
@@ -801,7 +801,7 @@
         <mxCell id="8Ua6jY4bID5snQ9ehEWF-163" value="- power: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="8Ua6jY4bID5snQ9ehEWF-162" vertex="1">
           <mxGeometry y="26" width="160" height="26" as="geometry"/>
         </mxCell>
-        <mxCell id="I_DIiAf3UKn2-9EFCBWJ-2" value="- vy: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="8Ua6jY4bID5snQ9ehEWF-162">
+        <mxCell id="I_DIiAf3UKn2-9EFCBWJ-2" value="- vy: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="8Ua6jY4bID5snQ9ehEWF-162" vertex="1">
           <mxGeometry y="52" width="160" height="26" as="geometry"/>
         </mxCell>
         <mxCell id="8Ua6jY4bID5snQ9ehEWF-164" value="- image: Image" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="8Ua6jY4bID5snQ9ehEWF-162" vertex="1">
@@ -861,7 +861,7 @@
         <mxCell id="8Ua6jY4bID5snQ9ehEWF-181" value="WeakBullet" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="-3190" y="905" width="160" height="138" as="geometry"/>
         </mxCell>
-        <mxCell id="I_DIiAf3UKn2-9EFCBWJ-7" value="- power: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="8Ua6jY4bID5snQ9ehEWF-181">
+        <mxCell id="I_DIiAf3UKn2-9EFCBWJ-7" value="- power: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="8Ua6jY4bID5snQ9ehEWF-181" vertex="1">
           <mxGeometry y="26" width="160" height="26" as="geometry"/>
         </mxCell>
         <mxCell id="8Ua6jY4bID5snQ9ehEWF-182" value="- vy: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="8Ua6jY4bID5snQ9ehEWF-181" vertex="1">
@@ -1061,7 +1061,7 @@
             <mxPoint as="offset"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="miJo5WxPGuC6tZNfyXXH-2" value="1" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="8Ua6jY4bID5snQ9ehEWF-136" target="UFyMMZuLHipoKUuzxxPV-12">
+        <mxCell id="miJo5WxPGuC6tZNfyXXH-2" value="1" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="8Ua6jY4bID5snQ9ehEWF-136" target="UFyMMZuLHipoKUuzxxPV-12" edge="1">
           <mxGeometry x="-1" y="3" relative="1" as="geometry">
             <mxPoint x="-2401.5" y="1269" as="sourcePoint"/>
             <mxPoint x="-2241.5" y="1269" as="targetPoint"/>
