@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2019-12-13T22:30:32.348Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0" etag="Q2o9rcCkOcfbkqLmlFr4" version="12.4.1" type="github" pages="3">
+<mxfile host="www.draw.io" modified="2019-12-13T22:37:40.642Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0" etag="OJwlx3gIhu7usjVjryoJ" version="12.4.1" type="github" pages="3">
   <diagram id="5fqncZ3Ex4PDNIBZFKyr" name="Strona-1">
     <mxGraphModel dx="4981" dy="2085" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -2680,7 +2680,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="03hhyE0-m6mj0c9mycJs-98" value="Ranking" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="03hhyE0-m6mj0c9mycJs-1" vertex="1">
-          <mxGeometry x="-3218" y="2236" width="160" height="164" as="geometry"/>
+          <mxGeometry x="-3270" y="2493" width="160" height="164" as="geometry"/>
         </mxCell>
         <mxCell id="03hhyE0-m6mj0c9mycJs-99" value="- highScore: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="03hhyE0-m6mj0c9mycJs-98" vertex="1">
           <mxGeometry y="26" width="160" height="26" as="geometry"/>
