@@ -1,6 +1,6 @@
-<mxfile host="www.draw.io" modified="2019-12-13T17:17:40.146Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0" etag="YymwgyZ6PTKGT1IILeU6" version="12.4.1" type="github" pages="2">
+<mxfile host="www.draw.io" modified="2019-12-13T17:41:01.228Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0" etag="RljHg7fJI5KL3D1Txmq-" version="12.4.1" type="github" pages="2">
   <diagram id="5fqncZ3Ex4PDNIBZFKyr" name="Strona-1">
-    <mxGraphModel dx="4771" dy="1970" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="4332" dy="1730" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
@@ -1661,7 +1661,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="xvdhD-cac852hZ_yRiWR" name="Page-2">
-    <mxGraphModel dx="5015" dy="-234" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="4332" dy="-608" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="XR1Rl89ihQA6g4dMu8jG-0"/>
         <mxCell id="XR1Rl89ihQA6g4dMu8jG-1" parent="XR1Rl89ihQA6g4dMu8jG-0"/>
@@ -1701,10 +1701,10 @@
         <mxCell id="ZOunCV26WkTXVioMAQnK-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-10" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry"/>
         </mxCell>
-        <mxCell id="ZOunCV26WkTXVioMAQnK-12" value="+ move(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-10" vertex="1">
+        <mxCell id="ZOunCV26WkTXVioMAQnK-13" value="+ shoot(): Bullet" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-10" vertex="1">
           <mxGeometry y="34" width="160" height="26" as="geometry"/>
         </mxCell>
-        <mxCell id="ZOunCV26WkTXVioMAQnK-13" value="+ shoot(): Bullet" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-10" vertex="1">
+        <mxCell id="ZOunCV26WkTXVioMAQnK-12" value="+ move(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-10" vertex="1">
           <mxGeometry y="60" width="160" height="26" as="geometry"/>
         </mxCell>
         <mxCell id="ZOunCV26WkTXVioMAQnK-14" value="+ destroy(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-10" vertex="1">
@@ -1893,7 +1893,7 @@
         <mxCell id="ZOunCV26WkTXVioMAQnK-74" value="# vy: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-71" vertex="1">
           <mxGeometry y="78" width="160" height="26" as="geometry"/>
         </mxCell>
-        <mxCell id="ZOunCV26WkTXVioMAQnK-75" value="# position:" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-71" vertex="1">
+        <mxCell id="ZOunCV26WkTXVioMAQnK-75" value="# position: Position" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-71" vertex="1">
           <mxGeometry y="104" width="160" height="26" as="geometry"/>
         </mxCell>
         <mxCell id="ZOunCV26WkTXVioMAQnK-76" value="# image: Image" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-71" vertex="1">
@@ -1905,7 +1905,7 @@
         <mxCell id="ZOunCV26WkTXVioMAQnK-78" value="- IBullet()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-71" vertex="1">
           <mxGeometry y="164" width="160" height="26" as="geometry"/>
         </mxCell>
-        <mxCell id="ZOunCV26WkTXVioMAQnK-161" value="+ draw(): " style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-71" vertex="1">
+        <mxCell id="ZOunCV26WkTXVioMAQnK-161" value="+ draw():void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-71" vertex="1">
           <mxGeometry y="190" width="160" height="26" as="geometry"/>
         </mxCell>
         <mxCell id="ZOunCV26WkTXVioMAQnK-79" value="+getBullet(): IBullet" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-71" vertex="1">
@@ -1971,10 +1971,10 @@
         <mxCell id="ZOunCV26WkTXVioMAQnK-102" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-97" vertex="1">
           <mxGeometry y="26" width="160" height="8" as="geometry"/>
         </mxCell>
-        <mxCell id="ZOunCV26WkTXVioMAQnK-103" value="+getBullet()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-97" vertex="1">
+        <mxCell id="ZOunCV26WkTXVioMAQnK-162" value="- IBullet()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-97" vertex="1">
           <mxGeometry y="34" width="160" height="26" as="geometry"/>
         </mxCell>
-        <mxCell id="ZOunCV26WkTXVioMAQnK-162" value="- IBullet()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-97" vertex="1">
+        <mxCell id="ZOunCV26WkTXVioMAQnK-103" value="+getBullet()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-97" vertex="1">
           <mxGeometry y="60" width="160" height="26" as="geometry"/>
         </mxCell>
         <mxCell id="ZOunCV26WkTXVioMAQnK-163" value="+ draw(): " style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-97" vertex="1">
@@ -2228,7 +2228,7 @@
             <mxPoint x="-2460" y="3100" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="B3uxJzONRgJTOuSelhX_-0" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;" edge="1" parent="XR1Rl89ihQA6g4dMu8jG-1" source="ZOunCV26WkTXVioMAQnK-50" target="ZOunCV26WkTXVioMAQnK-149">
+        <mxCell id="B3uxJzONRgJTOuSelhX_-0" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;" parent="XR1Rl89ihQA6g4dMu8jG-1" source="ZOunCV26WkTXVioMAQnK-50" target="ZOunCV26WkTXVioMAQnK-149" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-1980" y="3100" as="sourcePoint"/>
             <mxPoint x="-1820" y="3100" as="targetPoint"/>
