@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2019-12-13T18:35:56.239Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0" etag="TW5zBmJV2dXpAE5XX5St" version="12.4.1" type="github" pages="2">
+<mxfile host="www.draw.io" modified="2019-12-13T19:32:38.306Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0" etag="5-IFNdkxlItlNB0z-bgP" version="12.4.1" type="github" pages="2">
   <diagram id="5fqncZ3Ex4PDNIBZFKyr" name="Strona-1">
     <mxGraphModel dx="4730" dy="1948" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -1661,7 +1661,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="xvdhD-cac852hZ_yRiWR" name="Page-2">
-    <mxGraphModel dx="4730" dy="-390" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="5339" dy="-56" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="XR1Rl89ihQA6g4dMu8jG-0"/>
         <mxCell id="XR1Rl89ihQA6g4dMu8jG-1" parent="XR1Rl89ihQA6g4dMu8jG-0"/>
@@ -2027,13 +2027,15 @@
         <mxCell id="ZOunCV26WkTXVioMAQnK-129" value="+ showRanking(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-123" vertex="1">
           <mxGeometry y="138" width="160" height="26" as="geometry"/>
         </mxCell>
-        <mxCell id="ZOunCV26WkTXVioMAQnK-130" value="1" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;" parent="XR1Rl89ihQA6g4dMu8jG-1" source="ZOunCV26WkTXVioMAQnK-31" target="ZOunCV26WkTXVioMAQnK-81" edge="1">
+        <mxCell id="ZOunCV26WkTXVioMAQnK-130" value="1" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="XR1Rl89ihQA6g4dMu8jG-1" source="ZOunCV26WkTXVioMAQnK-151" target="ZOunCV26WkTXVioMAQnK-81" edge="1">
           <mxGeometry x="-0.9305" y="3" relative="1" as="geometry">
             <mxPoint x="-2440" y="2429" as="sourcePoint"/>
             <mxPoint x="-2280" y="2429" as="targetPoint"/>
             <mxPoint as="offset"/>
             <Array as="points">
-              <mxPoint x="-2180" y="2837"/>
+              <mxPoint x="-2000" y="2357"/>
+              <mxPoint x="-2000" y="2360"/>
+              <mxPoint x="-2180" y="2360"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -2049,14 +2051,12 @@
         <mxCell id="ZOunCV26WkTXVioMAQnK-134" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="ZOunCV26WkTXVioMAQnK-131" vertex="1">
           <mxGeometry y="78" width="160" height="8" as="geometry"/>
         </mxCell>
-        <mxCell id="ZOunCV26WkTXVioMAQnK-135" value="1" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;" parent="XR1Rl89ihQA6g4dMu8jG-1" source="ZOunCV26WkTXVioMAQnK-31" target="ZOunCV26WkTXVioMAQnK-67" edge="1">
+        <mxCell id="ZOunCV26WkTXVioMAQnK-135" value="1" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;exitX=-0.021;exitY=0.071;exitDx=0;exitDy=0;exitPerimeter=0;" parent="XR1Rl89ihQA6g4dMu8jG-1" source="ZOunCV26WkTXVioMAQnK-153" target="ZOunCV26WkTXVioMAQnK-67" edge="1">
           <mxGeometry x="-0.9692" y="-20" relative="1" as="geometry">
             <mxPoint x="-2330" y="2490" as="sourcePoint"/>
             <mxPoint x="-2570" y="2279" as="targetPoint"/>
             <Array as="points">
-              <mxPoint x="-2200" y="2837"/>
-              <mxPoint x="-2200" y="2478"/>
-              <mxPoint x="-2440" y="2478"/>
+              <mxPoint x="-2440" y="2399"/>
               <mxPoint x="-2440" y="2289"/>
               <mxPoint x="-2930" y="2289"/>
             </Array>
