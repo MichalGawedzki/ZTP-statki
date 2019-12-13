@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2019-12-13T19:38:02.558Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0" etag="4rmejyYF-NnCh1dhZ5dS" version="12.4.1" type="github" pages="2">
+<mxfile host="www.draw.io" modified="2019-12-13T19:38:16.539Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:71.0) Gecko/20100101 Firefox/71.0" etag="MIBR2PbiWKySAyRprqTK" version="12.4.1" type="github" pages="2">
   <diagram id="5fqncZ3Ex4PDNIBZFKyr" name="Strona-1">
     <mxGraphModel dx="4730" dy="1948" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -2112,9 +2112,7 @@
             <mxPoint x="-2470" y="3030" as="sourcePoint"/>
             <mxPoint x="-2310" y="3030" as="targetPoint"/>
             <Array as="points">
-              <mxPoint x="-1408" y="3160"/>
-              <mxPoint x="-1390" y="3160"/>
-              <mxPoint x="-1390" y="3267"/>
+              <mxPoint x="-1408" y="3267"/>
             </Array>
           </mxGeometry>
         </mxCell>
