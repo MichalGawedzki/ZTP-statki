@@ -1,4 +1,4 @@
-<mxfile host="www.draw.io" modified="2019-12-17T20:30:19.959Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36" etag="wIEJcF2eEphPWxxtBy1w" version="12.4.2" type="github" pages="3">
+<mxfile host="www.draw.io" modified="2019-12-17T20:31:05.190Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36" etag="TID7ZrC0nDkzjjTH-U1D" version="12.4.2" type="github" pages="3">
   <diagram id="5fqncZ3Ex4PDNIBZFKyr" name="Strona-1">
     <mxGraphModel dx="4956" dy="1917" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -2937,12 +2937,6 @@
         <mxCell id="03hhyE0-m6mj0c9mycJs-168" value="+ updateRanking()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="03hhyE0-m6mj0c9mycJs-163" vertex="1">
           <mxGeometry y="138" width="160" height="26" as="geometry"/>
         </mxCell>
-        <mxCell id="03hhyE0-m6mj0c9mycJs-169" value="1" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;" parent="03hhyE0-m6mj0c9mycJs-1" source="03hhyE0-m6mj0c9mycJs-163" target="XHCos4xSfcVBn2SelQ1G-9" edge="1">
-          <mxGeometry x="-1" y="3" relative="1" as="geometry">
-            <mxPoint x="-2208" y="1499" as="sourcePoint"/>
-            <mxPoint x="-2048" y="1499" as="targetPoint"/>
-          </mxGeometry>
-        </mxCell>
         <mxCell id="03hhyE0-m6mj0c9mycJs-170" value="" style="endArrow=open;endFill=1;endSize=12;html=1;" parent="03hhyE0-m6mj0c9mycJs-1" source="XHCos4xSfcVBn2SelQ1G-9" target="03hhyE0-m6mj0c9mycJs-151" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="-2198" y="1729" as="sourcePoint"/>
@@ -3052,6 +3046,12 @@
         </mxCell>
         <mxCell id="XHCos4xSfcVBn2SelQ1G-15" value="+ updateRanking()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="XHCos4xSfcVBn2SelQ1G-9">
           <mxGeometry y="112" width="160" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="XHCos4xSfcVBn2SelQ1G-17" value="" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;" edge="1" parent="03hhyE0-m6mj0c9mycJs-1" source="XHCos4xSfcVBn2SelQ1G-9" target="03hhyE0-m6mj0c9mycJs-163">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="-2080" y="1810" as="sourcePoint"/>
+            <mxPoint x="-1920" y="1810" as="targetPoint"/>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
