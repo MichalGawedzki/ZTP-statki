@@ -1,15 +1,13 @@
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
-import javafx.stage.Modality;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
-import javax.swing.text.Position;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,13 +21,22 @@ public class Game {
     private Pane root;
     private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
     private ArrayList<Bonus> bonusList = new ArrayList<Bonus>();
-    private HashMap<Position, Bullet> bulletList = new HashMap<Position, Bullet>();
-    private IShip ship;
+    private HashMap<Node, IBullet> bulletList = new HashMap<Node, IBullet>();
+    private IShip iShip;
     private Image background;
+    private int weaponLevel;
+
+    private Game() {
+    }
+
+    public static int getHEIGTH() {
+        return HEIGTH;
+    }
 
     //private Ranking ranking;
 
-    private Game() {
+    public static int getWIDTH() {
+        return WIDTH;
     }
 
     public static Game getGame() {
@@ -47,13 +54,48 @@ public class Game {
         root.getChildren().add(ship.getView());
     }
 
+    public void addBullet(IShip ship){
+        ship.getBullet().getView().setTranslateX(ship.getView().getTranslateX());
+        ship.getBullet().getView().setTranslateY(ship.getView().getTranslateY());
+        root.getChildren().add(iShip.getBullet().getView());
+    }
+
+    public void addBullet(Node position){
+        root.getChildren().add(position);
+    }
+
     public void onUpdate() {
-        ship.draw();
+
+        iShip.draw();
+        for (Node node : bulletList.keySet()) {
+//            node.setTranslateY(1);
+        }
+
+    }
+
+    private void checkKeyPressed() {
+        window.getScene().setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.LEFT) {
+                iShip.moveLeft();
+            } else if (e.getCode() == KeyCode.RIGHT) {
+                iShip.moveRight();
+            } else if(e.getCode() == KeyCode.SPACE){
+                double xx = iShip.getView().getTranslateX();
+                double yy = iShip.getView().getTranslateY();
+                Node startingPosition = new Circle(5, 5, 5, Color.RED);
+                startingPosition.setTranslateX(xx);
+                startingPosition.setTranslateY(yy);
+                bulletList.put(startingPosition, iShip.shoot(weaponLevel));
+                addBullet(startingPosition);
+//                addBullet(iShip);
+                System.out.println(bulletList);
+            }
+        });
     }
 
     public void startApp(Stage stage) {
         window = stage;
-        window.setResizable(false);
+        //window.setResizable(false);
         window.setTitle("Statki");
         root = new Pane();
         root.setPrefSize(WIDTH, HEIGTH);
@@ -64,10 +106,11 @@ public class Game {
         scene = new Scene(root);
         window.setScene(scene);
 
-        ship = Ship.getShipInstance();
-        ship.setVelocity(1.0, 0.0);
-        ship.shoot();
-        addShip(ship, Game.WIDTH / 2, Game.HEIGTH * 9 / 10);
+        iShip = Ship.getShipInstance();
+        iShip.setxVelocity(3);
+        System.out.println("hp: "+ iShip.getHP());
+        addShip(iShip, Game.WIDTH / 2, Game.HEIGTH * 9 / 10);
+//        addBullet(iShip);
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -77,17 +120,18 @@ public class Game {
         };
         timer.start();
 
+        checkKeyPressed();
 
-        stage.getScene().setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.LEFT) {
-                ship.setVelocity(-1, 0);
-            } else if (e.getCode() == KeyCode.RIGHT) {
-                ship.setVelocity(1, 0);
+        window.show();
 
-            }});
+        Point2D p1 = new Point2D(2, 3);
+        Point2D p2 = new Point2D(2, 2);
+        Point2D p3 = new Point2D(2, 2);
 
-            window.show();
-        }
-
-
+        if(p1.equals(p2)) System.out.println("1=2");
+        if(p1.equals(p3)) System.out.println("1=3");
+        if(p2.equals(p3)) System.out.println("2=3");
     }
+
+
+}

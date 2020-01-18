@@ -6,56 +6,93 @@ import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
 
-public class Ship implements IShip{
+public class Ship implements IShip {
 
     private static Ship shipInstance;
     private static Image image;
-
+    private static double WIDTH = 20;
+    private static double HEIGTH = 40;
+    int HP = 50;
+    BulletFactory bulletFactory = new BulletFactory();
+    IBullet iBullet;
+    private double xVelocity = 0;
     private Node view;
+    private Point2D velocity = new Point2D(0, 0);
+    private boolean isAlive;
+
+    private Ship() {
+        this.view = new Rectangle(WIDTH, HEIGTH, Color.BLUE);
+    }
+
+    public static Ship getShipInstance() {
+        if (shipInstance != null) {
+            return shipInstance;
+        } else {
+            shipInstance = new Ship();
+            return shipInstance;
+        }
+    }
+
+    public int getHP() {
+        return HP;
+    }
+
+    public void setHP(int HP) {
+        this.HP = HP;
+    }
+
+    @Override
+    public IBullet getBullet() {
+        return iBullet;
+    }
+
+    public double getxVelocity() {
+        return xVelocity;
+    }
+
+    public void setxVelocity(double xVelocity) {
+        this.xVelocity = xVelocity;
+        this.velocity = new Point2D(xVelocity, 0);
+    }
 
     public Point2D getVelocity() {
         return velocity;
     }
 
     public void setVelocity(double x, double y) {
+        this.xVelocity = x;
         this.velocity = new Point2D(x, y);
     }
-
-    private Point2D velocity = new Point2D(0, 0);
-    private boolean isAlive;
-
-//    static{
-//        try{
-//            image = Game.loadImage("img/ship.png");
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
-
 
     public Node getView() {
         return view;
     }
 
-    private Ship(){
-        this.view = new Rectangle(20, 40, Color.BLUE);
+    public void moveLeft() {
+        if ((view.getTranslateX() >= 0))
+            velocity = new Point2D(xVelocity * (-1), 0);
     }
 
-    public static Ship getShipInstance() {
-        if (shipInstance != null) {
-            return shipInstance;
-        }else{
-            shipInstance = new Ship();
-            return shipInstance;
-        }
+    public void moveRight() {
+        if ((view.getTranslateX() < (Game.getWIDTH() - this.WIDTH)))
+            velocity = new Point2D(xVelocity, 0);
     }
 
-    public void move() {
-        System.out.println("move");
+    public IBullet shoot(int weaponLevel) {
+        iBullet = bulletFactory.getBullet(weaponLevel);
+        return iBullet;
     }
 
-    public void shoot() {
-        System.out.println("shoot");
+    private boolean isTouchingRightBorder() {
+        if (view.getTranslateX() >= (Game.getWIDTH() - this.WIDTH)) {
+            return true;
+        } else return false;
+    }
+
+    private boolean isTouchingLeftBorder() {
+        if (view.getTranslateX() <= 0) {
+            return true;
+        } else return false;
     }
 
     public void spawn() {
@@ -67,11 +104,15 @@ public class Ship implements IShip{
     }
 
     public void draw() {
+//        isTouchingBorder()
+
         view.setTranslateX(view.getTranslateX() + velocity.getX());
-        view.setTranslateY(view.getTranslateY() + velocity.getY());
+        if (isTouchingLeftBorder() || isTouchingRightBorder()) {
+            velocity = new Point2D(0, 0);
+        }
     }
 
-    public void update(){
+    public void update() {
 
     }
 }
