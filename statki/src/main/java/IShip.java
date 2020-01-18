@@ -1,3 +1,4 @@
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 
 public interface IShip {
@@ -13,4 +14,6 @@ public interface IShip {
     public void spawn();
     public void getInstance();
     public void draw();
+    public Node getView();
+    public void setVelocity(double x, double y);
 }
