@@ -15,7 +15,7 @@ public class Ship implements IShip {
     int HP = 50;
     BulletFactory bulletFactory = new BulletFactory();
     IBullet iBullet;
-    private double xVelocity = 0;
+    private double xVelocity = 1;
     private Node view;
     private Point2D velocity = new Point2D(0, 0);
     private boolean isAlive;

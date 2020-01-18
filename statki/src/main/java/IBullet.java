@@ -2,7 +2,10 @@ import javafx.scene.Node;
 
 public interface IBullet {
 
-    Node getView();
-    void setView(Node node);
-    void draw();
+//    Node getView();
+//
+//    void setView(Node node);
+
+    Node draw(Node node);
+    Node spawn();
 }

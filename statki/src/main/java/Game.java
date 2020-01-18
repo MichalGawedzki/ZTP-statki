@@ -8,8 +8,10 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Game {
 
@@ -54,23 +56,31 @@ public class Game {
         root.getChildren().add(ship.getView());
     }
 
-    public void addBullet(IShip ship){
-        ship.getBullet().getView().setTranslateX(ship.getView().getTranslateX());
-        ship.getBullet().getView().setTranslateY(ship.getView().getTranslateY());
-        root.getChildren().add(iShip.getBullet().getView());
+    public void addBullet(IShip ship) {
+//        ship.getBullet().getView().setTranslateX(ship.getView().getTranslateX());
+//        ship.getBullet().getView().setTranslateY(ship.getView().getTranslateY());
+//        root.getChildren().add(iShip.getBullet().getView());
     }
 
-    public void addBullet(Node position){
+    public void addBullet(Node position) {
         root.getChildren().add(position);
     }
 
     public void onUpdate() {
 
+        HashMap<Node, IBullet> bulletHashMapTMP = new HashMap<>();
+
         iShip.draw();
         for (Node node : bulletList.keySet()) {
-//            node.setTranslateY(1);
+            root.getChildren().remove(node);
+            IBullet iBullet = bulletList.get(node);
+            node = iBullet.draw(node);
+            bulletHashMapTMP.put(node, iBullet);
         }
-
+        bulletList = bulletHashMapTMP;
+        for (Node node : bulletList.keySet()) {
+            addBullet(node);
+        }
     }
 
     private void checkKeyPressed() {
@@ -79,16 +89,10 @@ public class Game {
                 iShip.moveLeft();
             } else if (e.getCode() == KeyCode.RIGHT) {
                 iShip.moveRight();
-            } else if(e.getCode() == KeyCode.SPACE){
-                double xx = iShip.getView().getTranslateX();
-                double yy = iShip.getView().getTranslateY();
-                Node startingPosition = new Circle(5, 5, 5, Color.RED);
-                startingPosition.setTranslateX(xx);
-                startingPosition.setTranslateY(yy);
+            } else if (e.getCode() == KeyCode.SPACE) {
+                System.out.println("space");
+                Node startingPosition = iShip.shoot(weaponLevel).spawn();
                 bulletList.put(startingPosition, iShip.shoot(weaponLevel));
-                addBullet(startingPosition);
-//                addBullet(iShip);
-                System.out.println(bulletList);
             }
         });
     }
@@ -107,8 +111,7 @@ public class Game {
         window.setScene(scene);
 
         iShip = Ship.getShipInstance();
-        iShip.setxVelocity(3);
-        System.out.println("hp: "+ iShip.getHP());
+        System.out.println("hp: " + iShip.getHP());
         addShip(iShip, Game.WIDTH / 2, Game.HEIGTH * 9 / 10);
 //        addBullet(iShip);
 
@@ -124,14 +127,15 @@ public class Game {
 
         window.show();
 
+
         Point2D p1 = new Point2D(2, 3);
         Point2D p2 = new Point2D(2, 2);
         Point2D p3 = new Point2D(2, 2);
-
-        if(p1.equals(p2)) System.out.println("1=2");
-        if(p1.equals(p3)) System.out.println("1=3");
-        if(p2.equals(p3)) System.out.println("2=3");
+        if (p1.equals(p2)) System.out.println("1=2");
+        if (p1.equals(p3)) System.out.println("1=3");
+        if (p2.equals(p3)) System.out.println("2=3");
     }
+
 
 
 }
