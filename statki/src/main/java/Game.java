@@ -35,10 +35,11 @@ public class Game {
     private Label scoreLabel = new Label();
     private Label hpLabel = new Label();
     private int score = 0;
+    private int level = 0;
     private Image background;
-    private int weaponLevel = 2;
-    private long spawnFrequency = 3000; // time between each spawn in miliseconds
-    private LocalTime lastSpawnTime;
+    //    private int weaponLevel = 2;
+    private long spawnFrequency = 1000; // time between each spawn in miliseconds
+    private LocalTime lastSpawnTime = LocalTime.now();
 
     private Game() {
         lastSpawnTime = LocalTime.now();
@@ -63,6 +64,16 @@ public class Game {
             game = new Game();
             return game;
         }
+    }
+
+    public static boolean isTouchingBorder(Node node) {
+
+        if (node.getTranslateX() <= 0 ||
+                node.getTranslateX() >= WIDTH - node.getBoundsInParent().getWidth() ||
+                node.getTranslateY() <= 0 || node.getTranslateY() >= HEIGTH - node.getBoundsInParent().getHeight()) {
+            return true;
+        }
+        return false;
     }
 
     public void addShip(IShip ship, double x, double y) {
@@ -97,6 +108,17 @@ public class Game {
         root.getChildren().add(hpLabel);
     }
 
+    public void addEnemy() {
+
+        if (ChronoUnit.MILLIS.between(lastSpawnTime, LocalTime.now()) > spawnFrequency) {
+            System.out.println("teraz");
+            Enemy enemy = new Enemy();
+            enemyList.add(enemy);
+            root.getChildren().add(enemy.getView());
+            lastSpawnTime = LocalTime.now();
+        }
+    }
+
     public void updateLabels() {
         this.scoreLabel.setText(" Score: " + score + " ");
         this.hpLabel.setText(" HP: " + iShip.getHP() + " ");
@@ -121,6 +143,10 @@ public class Game {
         for (Node node : bulletList.keySet()) {
             addBullet(node);
         }
+        addEnemy();
+        for (Enemy enemy : enemyList) {
+            enemy.draw(root);
+        }
         checkCollisions();
     }
 
@@ -131,8 +157,8 @@ public class Game {
             } else if (e.getCode() == KeyCode.RIGHT) {
                 iShip.moveRight();
             } else if (e.getCode() == KeyCode.SPACE) {
-                Node startingPosition = iShip.shoot(weaponLevel).spawn();
-                bulletList.put(startingPosition, iShip.shoot(weaponLevel));
+                Node startingPosition = iShip.shoot().spawn();
+                bulletList.put(startingPosition, iShip.shoot());
             }
         });
     }
@@ -140,13 +166,22 @@ public class Game {
     private void checkCollisions() {
 //        System.out.println(distanceBetween(iShip.getView(), enemyList.get(0).getView()));
         HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
+        ArrayList<Enemy> enemiesTMP = new ArrayList<>();
 
         for (Node node : bulletList.keySet()) {
             for (Enemy enemy : enemyList) {
                 if (distanceBetween(node, enemy.getView()) < 10) {
                     System.out.println("kolizja");
+                    enemy.gotHit();
+                    if (!enemy.isAlive()) {
+                        System.out.println("enemy death");
+                        enemiesTMP.add(enemy);
+//                        root.getChildren().remove(enemy.getView());
+                    }
                     bulletsTMP.put(node, bulletList.get(node));
-                    score++;
+                    score += iShip.getBullet().getPower();
+                    if (score >= 50 && score < 100) levelUp();
+                    else if (score >= 250) levelUp();
                 }
 //                if(isCollisionBetween(node, enemy.getView())){
 //                    System.out.println("kolizja");
@@ -157,10 +192,19 @@ public class Game {
         }
         for (Node node : bulletsTMP.keySet()) {
             bulletList.remove(node);
+//            if(bulletsTMP.get(node).)
             root.getChildren().remove(node);
+        }
+        for (Enemy enemy : enemiesTMP) {
+            enemyList.remove(enemy);
+            root.getChildren().remove(enemy.getView());
         }
 
 
+    }
+
+    private void levelUp(){
+        iShip.setWeaponLevel(level);
     }
 
     private int distanceBetween(Node n1, Node n2) {
@@ -178,10 +222,10 @@ public class Game {
     }
 
     private boolean isCollisionBetween(Node n1, Node n2) {
-        double centerX1 =  (n1.getTranslateX() + n1.getBoundsInParent().getWidth()) / 2;
-        double centerX2 =  (n2.getTranslateX() + n2.getBoundsInParent().getWidth()) / 2;
-        double centerY1 =  (n1.getTranslateY() + n1.getBoundsInParent().getHeight()) / 2;
-        double centerY2 =  (n2.getTranslateY() + n2.getBoundsInParent().getHeight()) / 2;
+        double centerX1 = (n1.getTranslateX() + n1.getBoundsInParent().getWidth()) / 2;
+        double centerX2 = (n2.getTranslateX() + n2.getBoundsInParent().getWidth()) / 2;
+        double centerY1 = (n1.getTranslateY() + n1.getBoundsInParent().getHeight()) / 2;
+        double centerY2 = (n2.getTranslateY() + n2.getBoundsInParent().getHeight()) / 2;
 
         if (Math.abs(centerX1 - centerX2) < ((n1.getBoundsInParent().getWidth()) / 2 + (n2.getBoundsInParent().getWidth()) / 2) &&
                 Math.abs(centerY1 - centerY2) < ((n1.getBoundsInParent().getHeight()) / 2 + (n2.getBoundsInParent().getHeight()) / 2)) {

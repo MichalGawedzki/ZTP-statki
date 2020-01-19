@@ -7,7 +7,7 @@ public interface IShip {
 
     void moveRight();
 
-    IBullet shoot(int weaponLevel);
+    IBullet shoot();
 
     void spawn();
 
@@ -32,6 +32,10 @@ public interface IShip {
     void setHP(int dx);
 
     IBullet getBullet();
+
+    int getWeaponLevel();
+
+    void setWeaponLevel(int weaponLevel);
 
 
 }

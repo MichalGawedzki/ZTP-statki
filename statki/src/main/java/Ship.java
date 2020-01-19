@@ -20,6 +20,16 @@ public class Ship implements IShip {
     private Point2D velocity = new Point2D(0, 0);
     private boolean isAlive;
 
+    public int getWeaponLevel() {
+        return weaponLevel;
+    }
+
+    public void setWeaponLevel(int weaponLevel) {
+        this.weaponLevel = weaponLevel;
+    }
+
+    private int weaponLevel = 0;
+
     private Ship() {
         this.view = new Rectangle(WIDTH, HEIGTH, Color.BLUE);
     }
@@ -78,7 +88,7 @@ public class Ship implements IShip {
             velocity = new Point2D(xVelocity, 0);
     }
 
-    public IBullet shoot(int weaponLevel) {
+    public IBullet shoot() {
         iBullet = bulletFactory.getBullet(weaponLevel);
         return iBullet;
     }
@@ -107,7 +117,7 @@ public class Ship implements IShip {
 //        isTouchingBorder()
 
         view.setTranslateX(view.getTranslateX() + velocity.getX());
-        if (isTouchingLeftBorder() || isTouchingRightBorder()) {
+        if (Game.isTouchingBorder(view)) {
             velocity = new Point2D(0, 0);
         }
     }

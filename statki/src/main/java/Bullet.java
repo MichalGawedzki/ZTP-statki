@@ -6,6 +6,11 @@ import javafx.scene.shape.Circle;
 public class Bullet implements IBullet {
 
     int index;
+
+    public int getPower() {
+        return power;
+    }
+
     int power;
     int velocity;
 //    private Node view;
@@ -15,17 +20,17 @@ public class Bullet implements IBullet {
         this.index = index;
 //        view = new Circle(5, 5, 5, Color.RED);
         if (index == 0) {
-            power = 5;
+            power = 1;
             velocity = -1;
             color = Color.GREEN;
             System.out.println("new Bullet object GREEN");
         } else if (index == 1) {
-            power = 10;
+            power = 2;
             velocity = -2;
             color = Color.CORAL;
             System.out.println("new Bullet object CORAL");
         } else {
-            power = 15;
+            power = 3;
             velocity = -3;
             color = Color.RED;
             System.out.println("new Bullet object RED");

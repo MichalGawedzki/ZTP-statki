@@ -8,4 +8,5 @@ public interface IBullet {
 
     Node draw(Node node);
     Node spawn();
+    int getPower();
 }
