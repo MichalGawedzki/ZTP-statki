@@ -12,29 +12,32 @@ public class Bullet implements IBullet {
     Color color;
 
     Bullet(int index) {
-        System.out.println("new Bullet object");
         this.index = index;
 //        view = new Circle(5, 5, 5, Color.RED);
         if (index == 0) {
             power = 5;
-            velocity = 1;
+            velocity = -1;
             color = Color.GREEN;
+            System.out.println("new Bullet object GREEN");
         } else if (index == 1) {
             power = 10;
-            velocity = 2;
+            velocity = -2;
             color = Color.CORAL;
+            System.out.println("new Bullet object CORAL");
         } else {
             power = 15;
-            velocity = 3;
+            velocity = -3;
             color = Color.RED;
+            System.out.println("new Bullet object RED");
         }
+
     }
 
 
     @Override
     public Node draw(Node view) {
         Node newNode = new Circle(5, 5, 5, color);
-        newNode.setTranslateY(view.getTranslateY() - velocity);
+        newNode.setTranslateY(view.getTranslateY() + velocity);
         newNode.setTranslateX(view.getTranslateX());
         return newNode;
     }

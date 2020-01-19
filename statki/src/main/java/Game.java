@@ -1,14 +1,21 @@
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -25,10 +32,18 @@ public class Game {
     private ArrayList<Bonus> bonusList = new ArrayList<Bonus>();
     private HashMap<Node, IBullet> bulletList = new HashMap<Node, IBullet>();
     private IShip iShip;
+    private Label scoreLabel = new Label();
+    private Label hpLabel = new Label();
+    private int score = 0;
     private Image background;
-    private int weaponLevel;
+    private int weaponLevel = 2;
+    private long spawnFrequency = 3000; // time between each spawn in miliseconds
+    private LocalTime lastSpawnTime;
 
     private Game() {
+        lastSpawnTime = LocalTime.now();
+        System.out.println(lastSpawnTime);
+        System.out.println(ChronoUnit.MILLIS.between(lastSpawnTime, lastSpawnTime.minusSeconds(2)));
     }
 
     public static int getHEIGTH() {
@@ -66,10 +81,35 @@ public class Game {
         root.getChildren().add(position);
     }
 
+    public void addLabels() {
+        scoreLabel.setFont(new Font(16));
+        scoreLabel.setTextFill(Color.LIGHTGREY);
+        scoreLabel.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        scoreLabel.setOpacity(0.7);
+
+        hpLabel.setFont(new Font(16));
+        hpLabel.setTextFill(Color.LIGHTGREY);
+        hpLabel.setTranslateY(20);
+        hpLabel.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        hpLabel.setOpacity(0.7);
+
+        root.getChildren().add(scoreLabel);
+        root.getChildren().add(hpLabel);
+    }
+
+    public void updateLabels() {
+        this.scoreLabel.setText(" Score: " + score + " ");
+        this.hpLabel.setText(" HP: " + iShip.getHP() + " ");
+
+        root.getChildren().remove(scoreLabel);
+        root.getChildren().remove(hpLabel);
+        root.getChildren().add(scoreLabel);
+        root.getChildren().add(hpLabel);
+    }
+
     public void onUpdate() {
-
         HashMap<Node, IBullet> bulletHashMapTMP = new HashMap<>();
-
+        updateLabels();
         iShip.draw();
         for (Node node : bulletList.keySet()) {
             root.getChildren().remove(node);
@@ -81,6 +121,7 @@ public class Game {
         for (Node node : bulletList.keySet()) {
             addBullet(node);
         }
+        checkCollisions();
     }
 
     private void checkKeyPressed() {
@@ -90,11 +131,64 @@ public class Game {
             } else if (e.getCode() == KeyCode.RIGHT) {
                 iShip.moveRight();
             } else if (e.getCode() == KeyCode.SPACE) {
-                System.out.println("space");
                 Node startingPosition = iShip.shoot(weaponLevel).spawn();
                 bulletList.put(startingPosition, iShip.shoot(weaponLevel));
             }
         });
+    }
+
+    private void checkCollisions() {
+//        System.out.println(distanceBetween(iShip.getView(), enemyList.get(0).getView()));
+        HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
+
+        for (Node node : bulletList.keySet()) {
+            for (Enemy enemy : enemyList) {
+                if (distanceBetween(node, enemy.getView()) < 10) {
+                    System.out.println("kolizja");
+                    bulletsTMP.put(node, bulletList.get(node));
+                    score++;
+                }
+//                if(isCollisionBetween(node, enemy.getView())){
+//                    System.out.println("kolizja");
+//                    bulletsTMP.put(node, bulletList.get(node));
+//                    score++;
+//                }
+            }
+        }
+        for (Node node : bulletsTMP.keySet()) {
+            bulletList.remove(node);
+            root.getChildren().remove(node);
+        }
+
+
+    }
+
+    private int distanceBetween(Node n1, Node n2) {
+        int centerX1 = (int) (n1.getTranslateX() + n1.getBoundsInParent().getWidth()) / 2;
+        int centerX2 = (int) (n2.getTranslateX() + n2.getBoundsInParent().getWidth()) / 2;
+        int centerY1 = (int) (n1.getTranslateY() + n1.getBoundsInParent().getHeight()) / 2;
+        int centerY2 = (int) (n2.getTranslateY() + n2.getBoundsInParent().getHeight()) / 2;
+//        System.out.println("centerX1 " + centerX1);
+//        System.out.println("centerX2 " + centerX2);
+//        System.out.println("centerY1 " + centerY1);
+//        System.out.println("centerY2 " + centerY2);
+
+        int distance = (int) Math.sqrt(Math.pow(Math.abs(centerX1 - centerX2), 2) + Math.pow(Math.abs(centerY1 - centerY2), 2));
+        return distance;
+    }
+
+    private boolean isCollisionBetween(Node n1, Node n2) {
+        double centerX1 =  (n1.getTranslateX() + n1.getBoundsInParent().getWidth()) / 2;
+        double centerX2 =  (n2.getTranslateX() + n2.getBoundsInParent().getWidth()) / 2;
+        double centerY1 =  (n1.getTranslateY() + n1.getBoundsInParent().getHeight()) / 2;
+        double centerY2 =  (n2.getTranslateY() + n2.getBoundsInParent().getHeight()) / 2;
+
+        if (Math.abs(centerX1 - centerX2) < ((n1.getBoundsInParent().getWidth()) / 2 + (n2.getBoundsInParent().getWidth()) / 2) &&
+                Math.abs(centerY1 - centerY2) < ((n1.getBoundsInParent().getHeight()) / 2 + (n2.getBoundsInParent().getHeight()) / 2)) {
+            System.out.println("kolizja");
+            return true;
+        }
+        return false;
     }
 
     public void startApp(Stage stage) {
@@ -109,11 +203,23 @@ public class Game {
         root.setBackground(new Background(myBI));
         scene = new Scene(root);
         window.setScene(scene);
-
         iShip = Ship.getShipInstance();
         System.out.println("hp: " + iShip.getHP());
+        addLabels();
+        updateLabels();
         addShip(iShip, Game.WIDTH / 2, Game.HEIGTH * 9 / 10);
-//        addBullet(iShip);
+
+
+        Enemy enemy = new Enemy();
+        enemy.draw(root);
+        enemyList.add(enemy);
+        Enemy enemy2 = new Enemy();
+        enemy2.draw(root);
+        enemyList.add(enemy2);
+        Enemy enemy3 = new Enemy();
+        enemy3.draw(root);
+        enemyList.add(enemy3);
+
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -122,20 +228,8 @@ public class Game {
             }
         };
         timer.start();
-
         checkKeyPressed();
-
         window.show();
-
-
-        Point2D p1 = new Point2D(2, 3);
-        Point2D p2 = new Point2D(2, 2);
-        Point2D p3 = new Point2D(2, 2);
-        if (p1.equals(p2)) System.out.println("1=2");
-        if (p1.equals(p3)) System.out.println("1=3");
-        if (p2.equals(p3)) System.out.println("2=3");
     }
-
-
 
 }

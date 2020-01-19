@@ -3,13 +3,6 @@ import javafx.scene.image.Image;
 
 public interface IShip {
 
-//    int HP = 100;
-//    int dx = 10, dy = 10;
-//    BulletFactory bulletFactory = new BulletFactory();
-//    Bullet bullet = BulletFactory.getBullet(0);
-//    Ship shipInstance = Ship.getShipInstance();
-//    Image image = new Image("/resources/ship/png");
-
     void moveLeft();
 
     void moveRight();
