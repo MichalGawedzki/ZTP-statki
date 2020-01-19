@@ -19,16 +19,7 @@ public class Ship implements IShip {
     private Node view;
     private Point2D velocity = new Point2D(0, 0);
     private boolean isAlive;
-
-    public int getWeaponLevel() {
-        return weaponLevel;
-    }
-
-    public void setWeaponLevel(int weaponLevel) {
-        this.weaponLevel = weaponLevel;
-    }
-
-    private int weaponLevel = 0;
+    private int weaponLevel = 1;
 
     private Ship() {
         this.view = new Rectangle(WIDTH, HEIGTH, Color.BLUE);
@@ -41,6 +32,15 @@ public class Ship implements IShip {
             shipInstance = new Ship();
             return shipInstance;
         }
+    }
+
+    public int getWeaponLevel() {
+        return weaponLevel;
+    }
+
+    public void setWeaponLevel(int weaponLevel) {
+        this.weaponLevel = weaponLevel;
+        this.iBullet = bulletFactory.getBullet(weaponLevel);
     }
 
     public int getHP() {

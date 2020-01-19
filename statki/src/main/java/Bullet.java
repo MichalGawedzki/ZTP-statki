@@ -19,12 +19,12 @@ public class Bullet implements IBullet {
     Bullet(int index) {
         this.index = index;
 //        view = new Circle(5, 5, 5, Color.RED);
-        if (index == 0) {
+        if (index == 1) {
             power = 1;
             velocity = -1;
             color = Color.GREEN;
             System.out.println("new Bullet object GREEN");
-        } else if (index == 1) {
+        } else if (index == 2) {
             power = 2;
             velocity = -2;
             color = Color.CORAL;

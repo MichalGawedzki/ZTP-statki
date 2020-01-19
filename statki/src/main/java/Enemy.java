@@ -24,7 +24,7 @@ public class Enemy{
         HP = 1;
         this.view = new Rectangle(20, 40, Color.VIOLET);
         view.setTranslateY(10);
-        view.setTranslateX(Math.random()*Game.getWIDTH());
+        view.setTranslateX(Math.random()*(Game.getWIDTH() - view.getBoundsInParent().getWidth()));
         xVelocity = Math.random();
         velocity = new Point2D(xVelocity, 0);
 //        view.setTranslateX(11);

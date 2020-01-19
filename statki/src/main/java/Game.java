@@ -32,13 +32,14 @@ public class Game {
     private ArrayList<Bonus> bonusList = new ArrayList<Bonus>();
     private HashMap<Node, IBullet> bulletList = new HashMap<Node, IBullet>();
     private IShip iShip;
+    private Label levelLabel = new Label();
     private Label scoreLabel = new Label();
     private Label hpLabel = new Label();
     private int score = 0;
-    private int level = 0;
+    private int level = 1;
     private Image background;
     //    private int weaponLevel = 2;
-    private long spawnFrequency = 1000; // time between each spawn in miliseconds
+    private int spawnFrequency = 4000; // time between each spawn in miliseconds
     private LocalTime lastSpawnTime = LocalTime.now();
 
     private Game() {
@@ -93,14 +94,21 @@ public class Game {
     }
 
     public void addLabels() {
+
+        levelLabel.setFont(new Font(16));
+        levelLabel.setTextFill(Color.LIGHTGREY);
+        levelLabel.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        levelLabel.setOpacity(0.7);
+
         scoreLabel.setFont(new Font(16));
         scoreLabel.setTextFill(Color.LIGHTGREY);
+        scoreLabel.setTranslateY(20);
         scoreLabel.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         scoreLabel.setOpacity(0.7);
 
         hpLabel.setFont(new Font(16));
         hpLabel.setTextFill(Color.LIGHTGREY);
-        hpLabel.setTranslateY(20);
+        hpLabel.setTranslateY(40);
         hpLabel.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         hpLabel.setOpacity(0.7);
 
@@ -111,7 +119,6 @@ public class Game {
     public void addEnemy() {
 
         if (ChronoUnit.MILLIS.between(lastSpawnTime, LocalTime.now()) > spawnFrequency) {
-            System.out.println("teraz");
             Enemy enemy = new Enemy();
             enemyList.add(enemy);
             root.getChildren().add(enemy.getView());
@@ -120,16 +127,20 @@ public class Game {
     }
 
     public void updateLabels() {
+        this.levelLabel.setText(" Level: " + level + " ");
         this.scoreLabel.setText(" Score: " + score + " ");
         this.hpLabel.setText(" HP: " + iShip.getHP() + " ");
 
+        root.getChildren().remove(levelLabel);
         root.getChildren().remove(scoreLabel);
         root.getChildren().remove(hpLabel);
+        root.getChildren().add(levelLabel);
         root.getChildren().add(scoreLabel);
         root.getChildren().add(hpLabel);
     }
 
     public void onUpdate() {
+        System.out.println(bulletList);
         HashMap<Node, IBullet> bulletHashMapTMP = new HashMap<>();
         updateLabels();
         iShip.draw();
@@ -148,6 +159,7 @@ public class Game {
             enemy.draw(root);
         }
         checkCollisions();
+        checkBulletBorder();
     }
 
     private void checkKeyPressed() {
@@ -163,6 +175,19 @@ public class Game {
         });
     }
 
+    private void checkBulletBorder(){
+        HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
+        for (Node node : bulletList.keySet()) {
+            if (node.getTranslateY() <= 0){
+                bulletsTMP.put(node, bulletList.get(node));
+            }
+        }
+        for (Node node : bulletsTMP.keySet()) {
+            root.getChildren().remove(node);
+            bulletList.remove(node);
+        }
+    }
+
     private void checkCollisions() {
 //        System.out.println(distanceBetween(iShip.getView(), enemyList.get(0).getView()));
         HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
@@ -171,17 +196,14 @@ public class Game {
         for (Node node : bulletList.keySet()) {
             for (Enemy enemy : enemyList) {
                 if (distanceBetween(node, enemy.getView()) < 10) {
-                    System.out.println("kolizja");
                     enemy.gotHit();
                     if (!enemy.isAlive()) {
-                        System.out.println("enemy death");
                         enemiesTMP.add(enemy);
 //                        root.getChildren().remove(enemy.getView());
                     }
                     bulletsTMP.put(node, bulletList.get(node));
                     score += iShip.getBullet().getPower();
-                    if (score >= 50 && score < 100) levelUp();
-                    else if (score >= 250) levelUp();
+                    levelUp();
                 }
 //                if(isCollisionBetween(node, enemy.getView())){
 //                    System.out.println("kolizja");
@@ -204,7 +226,22 @@ public class Game {
     }
 
     private void levelUp(){
-        iShip.setWeaponLevel(level);
+
+//        level1; 0 - 50;
+//        level2; 50 - 100;
+//        level3; 100 - 200;
+//        level4; 200 - 400;
+//        level5; 400 - 800;
+//        level6; 800 - 1600;
+//        level7; 1600 - ;
+
+        if(score >= level*50*level && score <= level*100*level){
+            level++;
+            System.out.println("level: " + level + " score: " + score);
+            iShip.setWeaponLevel(level);
+            spawnFrequency *= 0.85;
+        }
+
     }
 
     private int distanceBetween(Node n1, Node n2) {
