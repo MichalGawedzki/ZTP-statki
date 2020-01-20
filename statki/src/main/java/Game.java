@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
@@ -39,13 +40,11 @@ public class Game {
     private int level = 1;
     private Image background;
     //    private int weaponLevel = 2;
-    private int spawnFrequency = 4000; // time between each spawn in miliseconds
+    private int spawnFrequency = 3000; // time between each spawn in miliseconds
     private LocalTime lastSpawnTime = LocalTime.now();
 
     private Game() {
         lastSpawnTime = LocalTime.now();
-        System.out.println(lastSpawnTime);
-        System.out.println(ChronoUnit.MILLIS.between(lastSpawnTime, lastSpawnTime.minusSeconds(2)));
     }
 
     public static int getHEIGTH() {
@@ -89,11 +88,11 @@ public class Game {
 //        root.getChildren().add(iShip.getBullet().getView());
     }
 
-    public void addBullet(Node position) {
+    private void addBullet(Node position) {
         root.getChildren().add(position);
     }
 
-    public void addLabels() {
+    private void addLabels() {
 
         levelLabel.setFont(new Font(16));
         levelLabel.setTextFill(Color.LIGHTGREY);
@@ -116,17 +115,18 @@ public class Game {
         root.getChildren().add(hpLabel);
     }
 
-    public void addEnemy() {
+    private void addEnemy() {
 
         if (ChronoUnit.MILLIS.between(lastSpawnTime, LocalTime.now()) > spawnFrequency) {
             Enemy enemy = new Enemy();
             enemyList.add(enemy);
-            root.getChildren().add(enemy.getView());
+//            root.getChildren().add(enemy.getView());
+            root.getChildren().addAll(enemy.getView(), new Text("1"));
             lastSpawnTime = LocalTime.now();
         }
     }
 
-    public void updateLabels() {
+    private void updateLabels() {
         this.levelLabel.setText(" Level: " + level + " ");
         this.scoreLabel.setText(" Score: " + score + " ");
         this.hpLabel.setText(" HP: " + iShip.getHP() + " ");
@@ -140,7 +140,6 @@ public class Game {
     }
 
     public void onUpdate() {
-        System.out.println(bulletList);
         HashMap<Node, IBullet> bulletHashMapTMP = new HashMap<>();
         updateLabels();
         iShip.draw();
@@ -175,10 +174,10 @@ public class Game {
         });
     }
 
-    private void checkBulletBorder(){
+    private void checkBulletBorder() {
         HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
         for (Node node : bulletList.keySet()) {
-            if (node.getTranslateY() <= 0){
+            if (node.getTranslateY() <= 0) {
                 bulletsTMP.put(node, bulletList.get(node));
             }
         }
@@ -225,17 +224,9 @@ public class Game {
 
     }
 
-    private void levelUp(){
+    private void levelUp() {
 
-//        level1; 0 - 50;
-//        level2; 50 - 100;
-//        level3; 100 - 200;
-//        level4; 200 - 400;
-//        level5; 400 - 800;
-//        level6; 800 - 1600;
-//        level7; 1600 - ;
-
-        if(score >= level*50*level && score <= level*100*level){
+        if (score >= level * 50 * level && score <= level * 100 * level) {
             level++;
             System.out.println("level: " + level + " score: " + score);
             iShip.setWeaponLevel(level);
@@ -289,17 +280,6 @@ public class Game {
         addLabels();
         updateLabels();
         addShip(iShip, Game.WIDTH / 2, Game.HEIGTH * 9 / 10);
-
-
-        Enemy enemy = new Enemy();
-        enemy.draw(root);
-        enemyList.add(enemy);
-        Enemy enemy2 = new Enemy();
-        enemy2.draw(root);
-        enemyList.add(enemy2);
-        Enemy enemy3 = new Enemy();
-        enemy3.draw(root);
-        enemyList.add(enemy3);
 
 
         AnimationTimer timer = new AnimationTimer() {

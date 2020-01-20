@@ -21,11 +21,11 @@ public class Enemy{
     private boolean alive = true;
 
     public Enemy(){
-        HP = 1;
+        HP = 5;
         this.view = new Rectangle(20, 40, Color.VIOLET);
         view.setTranslateY(10);
         view.setTranslateX(Math.random()*(Game.getWIDTH() - view.getBoundsInParent().getWidth()));
-        xVelocity = Math.random();
+        xVelocity = Math.random()*4-1;
         velocity = new Point2D(xVelocity, 0);
 //        view.setTranslateX(11);
     }
