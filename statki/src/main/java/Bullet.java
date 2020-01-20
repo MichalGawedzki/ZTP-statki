@@ -24,12 +24,33 @@ public class Bullet implements IBullet {
     Bullet(int index) {
         this.index = index;
 //        view = new Circle(5, 5, 5, Color.RED);
-        if (index == 0) {
+        if (index == -3) {
+            power = 5;
+            velocity = 3;
+            color = Color.PURPLE;
+            pathToImg = "img/bullet_enemy.png";
+            System.out.println("new Bullet object PURPLE");
+        } else
+        if (index == -2) {
+            power = 4;
+            velocity = 3;
+            color = Color.PURPLE;
+            pathToImg = "img/bullet_enemy.png";
+            System.out.println("new Bullet object PURPLE");
+        } else
+        if (index == -1) {
             power = 3;
             velocity = 3;
             color = Color.PURPLE;
             pathToImg = "img/bullet_enemy.png";
             System.out.println("new Bullet object PURPLE");
+        } else
+        if (index == 0) {
+            power = 20;
+            velocity = -5;
+            color = Color.PURPLE;
+            pathToImg = "img/bullet_enemy.png";
+            System.out.println("new SUPA BULLET");
         } else if (index == 1) {
             power = 1;
             velocity = -1;

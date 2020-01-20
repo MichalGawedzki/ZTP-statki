@@ -203,14 +203,26 @@ public class Game {
 
     private void checkBulletBorder() {
         HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
+        HashMap<Node, IBullet> bulletsTMP1 = new HashMap<>();
         for (Node node : bulletList.keySet()) {
             if (node.getTranslateY() <= 0) {
                 bulletsTMP.put(node, bulletList.get(node));
             }
         }
+        for (Node node : enemyBulletList.keySet()) {
+            if (node.getTranslateY() >= Game.getHEIGTH()) {
+                bulletsTMP1.put(node, enemyBulletList.get(node));
+            }
+        }
+
         for (Node node : bulletsTMP.keySet()) {
             root.getChildren().remove(node);
             bulletList.remove(node);
+        }
+
+        for (Node node : bulletsTMP1.keySet()) {
+            root.getChildren().remove(node);
+            enemyBulletList.remove(node);
         }
     }
 

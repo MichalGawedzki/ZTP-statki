@@ -80,7 +80,7 @@ public class Enemy{
     }
 
     public IBullet shoot() {
-        iBullet = bulletFactory.getBullet(0);
+        iBullet = bulletFactory.getBullet(-2);
         return iBullet;
     }
 
