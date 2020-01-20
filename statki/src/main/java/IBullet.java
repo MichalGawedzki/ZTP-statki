@@ -7,6 +7,6 @@ public interface IBullet {
 //    void setView(Node node);
 
     Node draw(Node node);
-    Node spawn();
+    Node spawn(double xx, double yy);
     int getPower();
 }

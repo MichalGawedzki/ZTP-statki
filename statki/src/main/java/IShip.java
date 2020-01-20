@@ -38,4 +38,5 @@ public interface IShip {
     void setWeaponLevel(int weaponLevel);
 
 
+    void gotHit(int power);
 }
