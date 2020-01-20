@@ -32,6 +32,7 @@ public class Game {
     private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
     private ArrayList<Bonus> bonusList = new ArrayList<Bonus>();
     private HashMap<Node, IBullet> bulletList = new HashMap<Node, IBullet>();
+    private HashMap<Node, IBullet> enemyBulletList = new HashMap<Node, IBullet>();
     private IShip iShip;
     private Label levelLabel = new Label();
     private Label scoreLabel = new Label();
@@ -42,6 +43,11 @@ public class Game {
     //    private int weaponLevel = 2;
     private int spawnFrequency = 3000; // time between each spawn in miliseconds
     private LocalTime lastSpawnTime = LocalTime.now();
+    private BulletFactory bulletFactory = new BulletFactory();
+
+    public BulletFactory getBulletFactory() {
+        return bulletFactory;
+    }
 
     private Game() {
         lastSpawnTime = LocalTime.now();
@@ -141,6 +147,7 @@ public class Game {
 
     public void onUpdate() {
         HashMap<Node, IBullet> bulletHashMapTMP = new HashMap<>();
+        HashMap<Node, IBullet> bulletHashMapTMP2 = new HashMap<>();
         updateLabels();
         iShip.draw();
         for (Node node : bulletList.keySet()) {
@@ -153,9 +160,29 @@ public class Game {
         for (Node node : bulletList.keySet()) {
             addBullet(node);
         }
+     //   bulletHashMapTMP.clear();
+
+
+        for (Node node : enemyBulletList.keySet()) {
+            root.getChildren().remove(node);
+            IBullet iBullet = enemyBulletList.get(node);
+            node = iBullet.draw(node);
+            bulletHashMapTMP2.put(node, iBullet);
+        }
+        enemyBulletList = bulletHashMapTMP2;
+        for (Node node : enemyBulletList.keySet()) {
+            addBullet(node);
+        }
+
+
         addEnemy();
         for (Enemy enemy : enemyList) {
             enemy.draw(root);
+            if (ChronoUnit.MILLIS.between(enemy.getSpawnTime(), LocalTime.now()) > enemy.getShootFrequency()) {
+                Node startingPosition = enemy.shoot().spawn(enemy.getView().getTranslateX(), enemy.getView().getTranslateY());
+                enemyBulletList.put(startingPosition, enemy.shoot());
+                enemy.setSpawnTime(LocalTime.now());
+            }
         }
         checkCollisions();
         checkBulletBorder();
@@ -168,7 +195,7 @@ public class Game {
             } else if (e.getCode() == KeyCode.RIGHT) {
                 iShip.moveRight();
             } else if (e.getCode() == KeyCode.SPACE) {
-                Node startingPosition = iShip.shoot().spawn();
+                Node startingPosition = iShip.shoot().spawn(iShip.getView().getTranslateX(),iShip.getView().getTranslateY());
                 bulletList.put(startingPosition, iShip.shoot());
             }
         });
@@ -192,6 +219,17 @@ public class Game {
         HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
         ArrayList<Enemy> enemiesTMP = new ArrayList<>();
 
+        for(Node node : enemyBulletList.keySet()) {
+            if(distanceBetween(node, iShip.getView()) < 10){
+                iShip.gotHit(enemyBulletList.get(node).getPower());
+                if(iShip.getHP()<=0){
+                    //window.close();
+                    //dodac powrot do menu czy zapis do rankingu
+                }
+                bulletsTMP.put(node, enemyBulletList.get(node));
+            }
+        }
+
         for (Node node : bulletList.keySet()) {
             for (Enemy enemy : enemyList) {
                 if (distanceBetween(node, enemy.getView()) < 10) {
@@ -211,8 +249,14 @@ public class Game {
 //                }
             }
         }
+
+
+
         for (Node node : bulletsTMP.keySet()) {
-            bulletList.remove(node);
+            if(bulletList.containsKey(node)) {
+                bulletList.remove(node);
+            } else
+                enemyBulletList.remove(node);
 //            if(bulletsTMP.get(node).)
             root.getChildren().remove(node);
         }
@@ -220,6 +264,8 @@ public class Game {
             enemyList.remove(enemy);
             root.getChildren().remove(enemy.getView());
         }
+
+
 
 
     }

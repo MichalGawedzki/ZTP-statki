@@ -13,7 +13,7 @@ public class Ship implements IShip {
     private static double WIDTH = 20;
     private static double HEIGTH = 40;
     int HP = 50;
-    BulletFactory bulletFactory = new BulletFactory();
+    BulletFactory bulletFactory;
     IBullet iBullet;
     private double xVelocity = 2;
     private Node view;
@@ -23,6 +23,8 @@ public class Ship implements IShip {
 
     private Ship() {
         this.view = new Rectangle(WIDTH, HEIGTH, Color.BLUE);
+        bulletFactory = Game.getGame().getBulletFactory();
+
     }
 
     public static Ship getShipInstance() {
@@ -124,5 +126,9 @@ public class Ship implements IShip {
 
     public void update() {
 
+    }
+
+    public void gotHit(int power){
+        this.HP -= power;
     }
 }
