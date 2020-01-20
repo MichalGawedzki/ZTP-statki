@@ -26,8 +26,8 @@ public class Ship implements IShip {
 //        this.view = new Rectangle(WIDTH, HEIGTH, Color.BLUE);
         Image image = new Image("img/ship.png");
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(80);
-        imageView.setFitWidth(80);
+        imageView.setFitHeight(40);
+        imageView.setFitWidth(40);
         this.view = imageView;
         bulletFactory = Game.getGame().getBulletFactory();
 
@@ -126,6 +126,7 @@ public class Ship implements IShip {
 //        isTouchingBorder()
         view.setTranslateX(view.getTranslateX() + velocity.getX());
         if (Game.isTouchingBorder(view)) {
+            System.out.println("is touching");
             velocity = new Point2D(0, 0);
         }
     }
