@@ -19,7 +19,12 @@ public class Bullet implements IBullet {
     Bullet(int index) {
         this.index = index;
 //        view = new Circle(5, 5, 5, Color.RED);
-        if (index == 1) {
+        if (index == 0) {
+            power = 3;
+            velocity = 3;
+            color = Color.PURPLE;
+            System.out.println("new Bullet object PURPLE");
+        } else if (index == 1) {
             power = 1;
             velocity = -1;
             color = Color.GREEN;
@@ -29,7 +34,7 @@ public class Bullet implements IBullet {
             velocity = -2;
             color = Color.CORAL;
             System.out.println("new Bullet object CORAL");
-        } else {
+        } else if (index == 3){
             power = 3;
             velocity = -3;
             color = Color.RED;
@@ -48,7 +53,7 @@ public class Bullet implements IBullet {
     }
 
     @Override
-    public Node spawn() {
+    public Node spawn(double xx, double yy) {
 //        double xx = iShip.getView().getTranslateX();
 //        double yy = iShip.getView().getTranslateY();
 //        Node startingPosition = new Circle(5, 5, 5, Color.RED);
@@ -60,8 +65,8 @@ public class Bullet implements IBullet {
 //        System.out.println(bulletList);
 
 
-        double xx = IShip.getShipInstance().getView().getTranslateX();
-        double yy = IShip.getShipInstance().getView().getTranslateY();
+//        double xx = IShip.getShipInstance().getView().getTranslateX();
+//        double yy = IShip.getShipInstance().getView().getTranslateY();
         Node view = new Circle(5, 5, 5, Color.RED);
         view.setTranslateX(xx);
         view.setTranslateY(yy);
