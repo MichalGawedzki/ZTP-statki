@@ -94,11 +94,8 @@ public abstract class Bonus implements IShip{
         iShip.setWeaponLevel(weaponLevel);
 
     }
+    @Override
+    public void gotHit(int power) {
 
-
-
-
-
-
-
+    }
 }
