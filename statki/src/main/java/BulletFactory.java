@@ -10,5 +10,4 @@ public class BulletFactory {
 
         return bullets.get(idx);
     }
-
 }

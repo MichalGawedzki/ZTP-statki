@@ -18,4 +18,5 @@ public class Main extends Application {
         Game game = Game.getGame();
         game.startApp(stage);
     }
+
 }

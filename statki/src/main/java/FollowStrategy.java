@@ -3,7 +3,6 @@ import javafx.scene.Node;
 
 public class FollowStrategy implements Strategy{
 
-
     public double move(Node node, IShip iShip) {
         return 0;
     }

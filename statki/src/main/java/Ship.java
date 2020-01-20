@@ -1,6 +1,7 @@
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -22,7 +23,12 @@ public class Ship implements IShip {
     private int weaponLevel = 1;
 
     private Ship() {
-        this.view = new Rectangle(WIDTH, HEIGTH, Color.BLUE);
+//        this.view = new Rectangle(WIDTH, HEIGTH, Color.BLUE);
+        Image image = new Image("img/ship.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(80);
+        imageView.setFitWidth(80);
+        this.view = imageView;
         bulletFactory = Game.getGame().getBulletFactory();
 
     }

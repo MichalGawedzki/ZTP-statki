@@ -28,7 +28,6 @@ public class Enemy{
 
     private LocalTime spawnTime;
 
-
     public Enemy(int level){
         HP = level*2;
         this.view = new Rectangle(20, 40, Color.VIOLET);

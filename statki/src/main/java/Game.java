@@ -41,7 +41,7 @@ public class Game {
     private int level = 1;
     private Image background;
     //    private int weaponLevel = 2;
-    private int spawnFrequency = 3000; // time between each spawn in miliseconds
+    private int spawnFrequency = 6000; // time between each spawn in miliseconds
     private LocalTime lastSpawnTime = LocalTime.now();
     private BulletFactory bulletFactory = new BulletFactory();
 
@@ -179,7 +179,7 @@ public class Game {
         for (Enemy enemy : enemyList) {
             enemy.draw(root);
             if (ChronoUnit.MILLIS.between(enemy.getSpawnTime(), LocalTime.now()) > enemy.getShootFrequency()) {
-                Node startingPosition = enemy.shoot().spawn(enemy.getView().getTranslateX(), enemy.getView().getTranslateY());
+                Node startingPosition = enemy.shoot().spawn(enemy.getView().getTranslateX() + enemy.getView().getBoundsInParent().getWidth()/2, enemy.getView().getTranslateY());
                 enemyBulletList.put(startingPosition, enemy.shoot());
                 enemy.setSpawnTime(LocalTime.now());
             }

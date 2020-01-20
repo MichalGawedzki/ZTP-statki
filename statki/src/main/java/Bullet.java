@@ -16,6 +16,7 @@ public class Bullet implements IBullet {
 //    private Node view;
     Color color;
 
+
     Bullet(int index) {
         this.index = index;
 //        view = new Circle(5, 5, 5, Color.RED);
