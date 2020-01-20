@@ -122,11 +122,9 @@ public class Ship implements IShip {
     }
 
     public void draw() {
-        System.out.println("draw");
 //        isTouchingBorder()
         view.setTranslateX(view.getTranslateX() + velocity.getX());
         if (Game.isTouchingBorder(view)) {
-            System.out.println("is touching");
             velocity = new Point2D(0, 0);
         }
     }

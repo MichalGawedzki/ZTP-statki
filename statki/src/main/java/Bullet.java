@@ -1,5 +1,7 @@
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -15,6 +17,7 @@ public class Bullet implements IBullet {
     int velocity;
 //    private Node view;
     Color color;
+    private String pathToImg;
 
 
     Bullet(int index) {
@@ -24,21 +27,25 @@ public class Bullet implements IBullet {
             power = 3;
             velocity = 3;
             color = Color.PURPLE;
+            pathToImg = "img/bullet_enemy.png";
             System.out.println("new Bullet object PURPLE");
         } else if (index == 1) {
             power = 1;
             velocity = -1;
             color = Color.GREEN;
+            pathToImg = "img/bullet_yellow.png";
             System.out.println("new Bullet object GREEN");
         } else if (index == 2) {
             power = 2;
             velocity = -2;
             color = Color.CORAL;
+            pathToImg = "img/bullet_yellow.png";
             System.out.println("new Bullet object CORAL");
         } else if (index == 3){
             power = 3;
             velocity = -3;
             color = Color.RED;
+            pathToImg = "img/bullet_yellow.png";
             System.out.println("new Bullet object RED");
         }
 
@@ -47,7 +54,17 @@ public class Bullet implements IBullet {
 
     @Override
     public Node draw(Node view) {
-        Node newNode = new Circle(5, 5, 5, color);
+//        Node newNode = new Circle(5, 5, 5, color);
+
+        Image image = new Image(pathToImg);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(20);
+        imageView.setFitWidth(20);
+        if(index == 0){
+            imageView.setRotate(135);
+        }
+        Node newNode = imageView;
+
         newNode.setTranslateY(view.getTranslateY() + velocity);
         newNode.setTranslateX(view.getTranslateX());
         return newNode;
@@ -69,7 +86,8 @@ public class Bullet implements IBullet {
 //        double xx = IShip.getShipInstance().getView().getTranslateX();
 //        double yy = IShip.getShipInstance().getView().getTranslateY();
         Node view = new Circle(5, 5, 5, Color.RED);
-        view.setTranslateX(xx);
+        System.out.println(IShip.getShipInstance().getView().getBoundsInParent().getWidth());
+        view.setTranslateX(xx+IShip.getShipInstance().getView().getBoundsInParent().getWidth()/4);
         view.setTranslateY(yy);
         return view;
 

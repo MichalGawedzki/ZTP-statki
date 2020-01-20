@@ -1,6 +1,7 @@
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -30,7 +31,14 @@ public class Enemy{
 
     public Enemy(int level){
         HP = level*2;
-        this.view = new Rectangle(20, 40, Color.VIOLET);
+
+        Image image = new Image("img/enemy1.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(40);
+        imageView.setFitWidth(40);
+        this.view = imageView;
+
+//        this.view = new Rectangle(20, 40, Color.VIOLET);
         bulletFactory = Game.getGame().getBulletFactory();
         view.setTranslateY(10);
         view.setTranslateX(Math.random()*(Game.getWIDTH() - view.getBoundsInParent().getWidth()));
