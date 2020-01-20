@@ -20,14 +20,16 @@ public class Enemy{
     private double xVelocity;
     private boolean alive = true;
 
-    public Enemy(){
-        HP = 5;
+    public Enemy(int level){
+        HP = level*2;
         this.view = new Rectangle(20, 40, Color.VIOLET);
         view.setTranslateY(10);
         view.setTranslateX(Math.random()*(Game.getWIDTH() - view.getBoundsInParent().getWidth()));
         xVelocity = Math.random()*4-1;
         velocity = new Point2D(xVelocity, 0);
 //        view.setTranslateX(11);
+        if (level <= 4) strategy = new RandomStrategy();
+        else strategy = new FollowStrategy();
     }
 
     public void draw(Pane root){
@@ -35,11 +37,13 @@ public class Enemy{
 ////        root.getChildren().add(view);
 
 
-        view.setTranslateX(view.getTranslateX() + velocity.getX());
-        if (Game.isTouchingBorder(view)) {
-            xVelocity = -xVelocity;
-            velocity = new Point2D(xVelocity, 0);
-        }
+        strategy.move(view, xVelocity, velocity, IShip.getShipInstance());
+
+//        view.setTranslateX(view.getTranslateX() + velocity.getX()*strategy.move(view, IShip.getShipInstance()));
+//        if (Game.isTouchingBorder(view)) {
+//            xVelocity = -xVelocity;
+//            velocity = new Point2D(xVelocity, 0);
+//        }
     }
 
     public void gotHit(){

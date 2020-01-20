@@ -118,7 +118,7 @@ public class Game {
     private void addEnemy() {
 
         if (ChronoUnit.MILLIS.between(lastSpawnTime, LocalTime.now()) > spawnFrequency) {
-            Enemy enemy = new Enemy();
+            Enemy enemy = new Enemy(level);
             enemyList.add(enemy);
 //            root.getChildren().add(enemy.getView());
             root.getChildren().addAll(enemy.getView(), new Text("1"));
