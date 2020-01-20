@@ -18,6 +18,7 @@ public class Bullet implements IBullet {
 //    private Node view;
     Color color;
     private String pathToImg;
+    Image image;
 
 
     Bullet(int index) {
@@ -48,15 +49,14 @@ public class Bullet implements IBullet {
             pathToImg = "img/bullet_yellow.png";
             System.out.println("new Bullet object RED");
         }
-
+        image = new Image(pathToImg);
     }
 
 
     @Override
     public Node draw(Node view) {
-//        Node newNode = new Circle(5, 5, 5, color);
 
-        Image image = new Image(pathToImg);
+//        Image image = new Image(pathToImg);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
@@ -65,8 +65,10 @@ public class Bullet implements IBullet {
         }
         Node newNode = imageView;
 
+//        Node newNode = new Circle(5, 5, 5, color);
         newNode.setTranslateY(view.getTranslateY() + velocity);
         newNode.setTranslateX(view.getTranslateX());
+
         return newNode;
     }
 
