@@ -17,7 +17,7 @@ public class ImmortalNode extends BonusNode{
         view=imageView;
 
         view.setTranslateX(Math.random() * (Game.getWIDTH() - view.getBoundsInParent().getWidth()));
-        view.setTranslateY(Math.random() * (Game.getHEIGTH() - view.getBoundsInParent().getHeight()));
+        view.setTranslateY((Math.random() * (Game.getHEIGTH() - view.getBoundsInParent().getHeight())+50)*0.8);
     }
 
     public Node getView() {

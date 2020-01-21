@@ -17,7 +17,6 @@ public class GunDecorator extends Bonus {
     public GunDecorator(IShip iShip) throws IOException {
         super(iShip);
         addGunBonusLabel();
-        System.out.println("got Gun");
         iBullet = bulletFactory.getBullet(0);
     }
 

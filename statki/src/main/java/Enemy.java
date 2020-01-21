@@ -39,7 +39,6 @@ public class Enemy {
         this.level = level;
         HP = level * 2;
 
-
         Image image = new Image("img/enemy1.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(40);
@@ -60,29 +59,11 @@ public class Enemy {
     }
 
     public void draw(Pane root) throws IOException {
-//        root.getChildren().remove(view);
-////        root.getChildren().add(view);
-
-
-//        strategy.move(view, velocity, IShip.getShipInstance());
-//        xVelocity *= strategy.move(view, velocity, IShip.getShipInstance());
-//        velocity = new Point2D(xVelocity, 0);
-//        view.setTranslateX(view.getTranslateX() + velocity.getX());
-//        if (Game.isTouchingBorder(view)) {
-//            xVelocity = -xVelocity;
-//            velocity = new Point2D(xVelocity, 0);
-//        }
 
         int direction = strategy.move(view, velocity, IShip.getShipInstance());
         xVelocity = Math.abs(xVelocity) * direction;
         velocity = new Point2D(xVelocity, 0);
         view.setTranslateX(view.getTranslateX() + xVelocity);
-
-//        view.setTranslateX(view.getTranslateX() + velocity.getX());
-//        if (Game.isTouchingBorder(view)) {
-//            xVelocity = -xVelocity;
-//            velocity = new Point2D(xVelocity, 0);
-//        }
     }
 
     public void gotHit() throws IOException {

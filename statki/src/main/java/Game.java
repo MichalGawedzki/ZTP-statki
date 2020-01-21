@@ -504,7 +504,7 @@ public class Game {
 
     public void spawnBonus() {
         Random rand = new Random();
-        int randomNum = rand.nextInt((10 - 5) + 1) + 5;
+        int randomNum = rand.nextInt((20 - 15) + 1) + 15;
 
         if (ChronoUnit.SECONDS.between(timeLocal, LocalTime.now()) > randomNum) {
             addBonus();
@@ -543,7 +543,5 @@ public class Game {
 
     }
 
-    public void checkBonusCollision() {
 
-    }
 }

@@ -19,7 +19,6 @@ public class HeartDecorator extends Bonus {
     public HeartDecorator(IShip iShip) throws IOException {
         super(iShip);
         addHeartBonusLabel();
-        System.out.println("got Heart");
         spawnTime = LocalTime.now();
     }
 

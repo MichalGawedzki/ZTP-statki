@@ -26,21 +26,21 @@ public class Bullet implements IBullet {
     Bullet(int index) {
         this.index = index;
 //        view = new Circle(5, 5, 5, Color.RED);
-        if (index <= -3) {
+        if (index <= -5) {
             power = 5;
             velocity = 4;
             color = Color.PURPLE;
             pathToImg = "img/bullet_enemy.png";
             System.out.println("new Bullet object PURPLE");
         } else
-        if (index == -2) {
+        if (index == -3 || index == -4) {
             power = 4;
             velocity = 3;
             color = Color.PURPLE;
             pathToImg = "img/bullet_enemy.png";
             System.out.println("new Bullet object PURPLE");
         } else
-        if (index == -1) {
+        if (index == -1 || index == -2) {
             power = 3;
             velocity = 3;
             color = Color.PURPLE;
@@ -53,19 +53,19 @@ public class Bullet implements IBullet {
             color = Color.PURPLE;
             pathToImg = "img/bullet_premium.png";
             System.out.println("new SUPA BULLET");
-        } else if (index == 1) {
+        } else if (index == 1 || index == 2) {
             power = 1;
             velocity = -1;
             color = Color.GREEN;
             pathToImg = "img/bullet_gold.png";
             System.out.println("new Bullet object GREEN");
-        } else if (index == 2) {
+        } else if (index == 3 || index == 4) {
             power = 2;
             velocity = -2;
             color = Color.CORAL;
             pathToImg = "img/bullet_yellow.png";
             System.out.println("new Bullet object CORAL");
-        } else if (index >= 3){
+        } else if (index >= 5){
             power = 3;
             velocity = -3;
             color = Color.RED;
