@@ -22,7 +22,7 @@ public class Ship implements IShip {
     private boolean isAlive;
     private int weaponLevel = 1;
 
-    private Ship() {
+    private Ship() throws IOException {
 //        this.view = new Rectangle(WIDTH, HEIGTH, Color.BLUE);
         Image image = new Image("img/ship.png");
         ImageView imageView = new ImageView(image);
@@ -33,7 +33,7 @@ public class Ship implements IShip {
 
     }
 
-    public static Ship getShipInstance() {
+    public static Ship getShipInstance() throws IOException {
         if (shipInstance != null) {
             return shipInstance;
         } else {

@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.Random;
 
@@ -33,7 +34,7 @@ public class Enemy {
         return HP;
     }
 
-    public Enemy(int level) {
+    public Enemy(int level) throws IOException {
         HP = level * 2;
 
         Image image = new Image("img/enemy1.png");
@@ -55,7 +56,7 @@ public class Enemy {
         else strategy = new FollowStrategy();
     }
 
-    public void draw(Pane root) {
+    public void draw(Pane root) throws IOException {
 //        root.getChildren().remove(view);
 ////        root.getChildren().add(view);
 
@@ -81,7 +82,7 @@ public class Enemy {
 //        }
     }
 
-    public void gotHit() {
+    public void gotHit() throws IOException {
         this.HP -= IShip.getShipInstance().getBullet().getPower();
     }
 
