@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -47,10 +48,6 @@ public class Game {
     private AnimationTimer timer;
     private Node view;
 
-    public BulletFactory getBulletFactory() {
-        return bulletFactory;
-    }
-
     private Game() {
         lastSpawnTime = LocalTime.now();
     }
@@ -59,11 +56,11 @@ public class Game {
         return HEIGTH;
     }
 
-    //private Ranking ranking;
-
     public static int getWIDTH() {
         return WIDTH;
     }
+
+    //private Ranking ranking;
 
     public static Game getGame() {
         if (game != null) {
@@ -82,6 +79,10 @@ public class Game {
             return true;
         }
         return false;
+    }
+
+    public BulletFactory getBulletFactory() {
+        return bulletFactory;
     }
 
     public void addShip(IShip ship, double x, double y) {
@@ -145,7 +146,7 @@ public class Game {
 
     }
 
-    private void onGameOverKeyPressed(){
+    private void onGameOverKeyPressed() {
         window.getScene().setOnKeyPressed(e -> {
 
             if (e.getCode() == KeyCode.ENTER) {
@@ -195,7 +196,7 @@ public class Game {
         HashMap<Node, IBullet> bulletHashMapTMP = new HashMap<>();
         HashMap<Node, IBullet> bulletHashMapTMP2 = new HashMap<>();
         updateLabels();
-        iShip.draw();
+//        iShip.draw();
         spawnBonus();
         for (Node node : bulletList.keySet()) {
             root.getChildren().remove(node);
@@ -234,13 +235,13 @@ public class Game {
         checkCollisions();
         checkBulletBorder();
 
-        if(iShip.draw()==1)
-        {
-            iShip=iShip.undecorete();
+        if (iShip.draw() == 1) {
+            System.out.println("undecorate");
+            iShip = iShip.undecorete();
         }
-        else {
-            iShip.draw();
-        }
+//        else {
+//            iShip.draw();
+//        }
 
     }
 
@@ -320,10 +321,13 @@ public class Game {
             }
             for (BonusNode bonusNode : bonusList) {
 
-                if(distanceBetween(node, bonusNode.getView() )<10)
-                {
-                    if(bonusNode instanceof HeartNode){
+                if (distanceBetween(node, bonusNode.getView()) < 10) {
+                    if (bonusNode instanceof HeartNode) {
                         iShip = new HeartDecorator(iShip);
+                    } else if (bonusNode instanceof GunNode) {
+                        iShip = new GunDecorator(iShip);
+                    } else if (bonusNode instanceof ImmortalNode) {
+                        iShip = new ImmortalityDecorator(iShip);
                     }
                     bonusListTMP.add(bonusNode);
                     bulletsTMP.put(node, bulletList.get(node));
@@ -426,7 +430,7 @@ public class Game {
 //        window.show();
     }
 
-    private void resetData(){
+    private void resetData() {
         level = 1;
         score = 0;
         iShip.setHP(5);
@@ -439,41 +443,33 @@ public class Game {
     }
 
 
-    public void spawnBonus()
-    {
+    public void spawnBonus() {
         Random rand = new Random();
         int randomNum = rand.nextInt((10 - 5) + 1) + 5;
 
-        if(ChronoUnit.SECONDS.between(timeLocal, LocalTime.now()) > randomNum)
-        {
+        if (ChronoUnit.SECONDS.between(timeLocal, LocalTime.now()) > randomNum) {
             addBonus();
             timeLocal = LocalTime.now();
         }
 
     }
 
-    public void addBonus()
-    {
+    public void addBonus() {
         Random rand = new Random();
         int randomBonus = rand.nextInt((3 - 1) + 1) + 1;
         System.out.println(randomBonus);
-        if(randomBonus==1)
-        {
+        if (randomBonus == 1) {
             HeartNode heartNode = new HeartNode();
             addBonusToMap(heartNode.getView());
             bonusList.add(heartNode);
 
 
-        }
-        else if(randomBonus==2)
-        {
+        } else if (randomBonus == 2) {
             GunNode gunNode = new GunNode();
             addBonusToMap(gunNode.getView());
             bonusList.add(gunNode);
 
-        }
-        else
-        {
+        } else {
             ImmortalNode immortalNode = new ImmortalNode();
             addBonusToMap(immortalNode.getView());
             bonusList.add(immortalNode);
@@ -481,15 +477,14 @@ public class Game {
         }
     }
 
-    public void addBonusToMap(Node view)
-    {
+    public void addBonusToMap(Node view) {
         //zacząć odliczać czas do kolejnego spawnu
 
         root.getChildren().add(view);
 
     }
-    public void checkBonusCollision()
-    {
+
+    public void checkBonusCollision() {
 
     }
 }

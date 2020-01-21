@@ -9,7 +9,7 @@ public class HeartNode extends  BonusNode{
     public HeartNode()
     {
 
-        System.out.println("new HeartNode");
+//        System.out.println("new HeartNode");
         Image image = new Image("img/heart.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(25);

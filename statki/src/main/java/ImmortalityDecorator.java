@@ -14,7 +14,7 @@ public class ImmortalityDecorator extends Bonus {
     public ImmortalityDecorator(IShip iShip)
     {
         super(iShip);
-
+        System.out.println("got Immortality");
     }
 
     @Override

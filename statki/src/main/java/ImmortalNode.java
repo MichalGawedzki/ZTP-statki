@@ -9,7 +9,7 @@ public class ImmortalNode extends BonusNode{
     public ImmortalNode()
     {
 
-        System.out.println("new ImmortalNode");
+//        System.out.println("new ImmortalNode");
         Image image = new Image("img/immortal.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(25);

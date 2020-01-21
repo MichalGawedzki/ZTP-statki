@@ -10,13 +10,12 @@ public class GunDecorator extends Bonus {
     private IBullet iBullet;
     private BulletFactory bulletFactory = new BulletFactory();
     private LocalTime timeLocal = LocalTime.now();
-    private int time = 5000;
+    private int time = 20000;
 
-    public GunDecorator(IShip iShip)
-    {
+    public GunDecorator(IShip iShip) {
         super(iShip);
-
-        iBullet=bulletFactory.getBullet(0);
+        System.out.println("got Gun");
+        iBullet = bulletFactory.getBullet(0);
     }
 
 
@@ -24,9 +23,8 @@ public class GunDecorator extends Bonus {
     public int draw() {
         iShip.draw();
 
-        if(ChronoUnit.MILLIS.between(timeLocal, LocalTime.now()) > time)
-        {
-           return 1;
+        if (ChronoUnit.MILLIS.between(timeLocal, LocalTime.now()) > time) {
+            return 1;
 
         }
         return 0;
@@ -41,7 +39,6 @@ public class GunDecorator extends Bonus {
     public IBullet shoot() {
         return iBullet;
     }
-
 
 
 }

@@ -11,11 +11,14 @@ public class HeartDecorator extends Bonus {
     private int addhp = 5;
     private LocalTime time = LocalTime.now();
     private int spawnFrequency = 1000;
+    private int duration = 5;
+    private LocalTime spawnTime;
 
     public HeartDecorator(IShip iShip)
     {
         super(iShip);
-
+        System.out.println("got Heart");
+        spawnTime = LocalTime.now();
     }
 
     @Override
@@ -33,8 +36,12 @@ public class HeartDecorator extends Bonus {
         {
             iShip.setHP(currentHP+addhp);
             time = LocalTime.now();
-            return 1;
 
+
+        }
+        if (ChronoUnit.SECONDS.between(spawnTime, LocalTime.now())>duration) {
+            System.out.println("return 1");
+            return 1;
         }
         return 0;
 
@@ -46,5 +53,8 @@ public class HeartDecorator extends Bonus {
 
     }
 
-
+    @Override
+    public void gotHit(int power) {
+        super.gotHit(power);
+    }
 }
