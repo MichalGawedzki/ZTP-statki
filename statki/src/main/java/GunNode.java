@@ -8,7 +8,7 @@ public class GunNode extends BonusNode {
     public GunNode()
     {
 
-        System.out.println("new HeartNode");
+        System.out.println("new GunNode");
         Image image = new Image("img/gun.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(25);
