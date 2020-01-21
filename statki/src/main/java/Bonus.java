@@ -14,6 +14,8 @@ public abstract class Bonus implements IShip{
 
 
     protected IShip iShip;
+
+
     public Bonus(IShip iShip)
     {
         this.iShip=iShip;
@@ -97,5 +99,10 @@ public abstract class Bonus implements IShip{
     @Override
     public void gotHit(int power) {
 
+    }
+
+    @Override
+    public IShip undecorete() {
+        return iShip;
     }
 }

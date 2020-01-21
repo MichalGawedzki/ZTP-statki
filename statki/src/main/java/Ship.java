@@ -2,10 +2,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-
-import java.io.IOException;
 
 public class Ship implements IShip {
 
@@ -125,12 +121,13 @@ public class Ship implements IShip {
 
     }
 
-    public void draw() {
+    public int draw() {
 //        isTouchingBorder()
         view.setTranslateX(view.getTranslateX() + velocity.getX());
         if (Game.isTouchingBorder(view)) {
             velocity = new Point2D(0, 0);
         }
+        return -1;
     }
 
     public void update() {
@@ -140,4 +137,12 @@ public class Ship implements IShip {
     public void gotHit(int power){
         this.HP -= power;
     }
+
+    @Override
+    public IShip undecorete() {
+        return this;
+    }
+
+
+
 }

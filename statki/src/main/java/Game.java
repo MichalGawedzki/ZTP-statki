@@ -1,6 +1,5 @@
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
-import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -8,19 +7,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 
 public class Game {
@@ -32,7 +29,7 @@ public class Game {
     private Scene scene;
     private Pane root;
     private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
-    private ArrayList<Bonus> bonusList = new ArrayList<Bonus>();
+    private ArrayList<BonusNode> bonusList = new ArrayList<BonusNode>();
     private HashMap<Node, IBullet> bulletList = new HashMap<Node, IBullet>();
     private HashMap<Node, IBullet> enemyBulletList = new HashMap<Node, IBullet>();
     private IShip iShip;
@@ -45,8 +42,10 @@ public class Game {
     //    private int weaponLevel = 2;
     private int spawnFrequency = 2500; // time between each spawn in miliseconds
     private LocalTime lastSpawnTime = LocalTime.now();
+    private LocalTime timeLocal = LocalTime.now();
     private BulletFactory bulletFactory = new BulletFactory();
     private AnimationTimer timer;
+    private Node view;
 
     public BulletFactory getBulletFactory() {
         return bulletFactory;
@@ -197,6 +196,7 @@ public class Game {
         HashMap<Node, IBullet> bulletHashMapTMP2 = new HashMap<>();
         updateLabels();
         iShip.draw();
+        spawnBonus();
         for (Node node : bulletList.keySet()) {
             root.getChildren().remove(node);
             IBullet iBullet = bulletList.get(node);
@@ -233,7 +233,17 @@ public class Game {
         }
         checkCollisions();
         checkBulletBorder();
+
+        if(iShip.draw()==1)
+        {
+            iShip=iShip.undecorete();
+        }
+        else {
+            iShip.draw();
+        }
+
     }
+
 
     private void checkKeyPressed() {
         window.getScene().setOnKeyPressed(e -> {
@@ -277,6 +287,7 @@ public class Game {
 //        System.out.println(distanceBetween(iShip.getView(), enemyList.get(0).getView()));
         HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
         ArrayList<Enemy> enemiesTMP = new ArrayList<>();
+        ArrayList<BonusNode> bonusListTMP = new ArrayList<>();
 
         for (Node node : enemyBulletList.keySet()) {
             if (distanceBetween(node, iShip.getView()) < 10) {
@@ -307,6 +318,19 @@ public class Game {
 //                    score++;
 //                }
             }
+            for (BonusNode bonusNode : bonusList) {
+
+                if(distanceBetween(node, bonusNode.getView() )<10)
+                {
+                    if(bonusNode instanceof HeartNode){
+                        iShip = new HeartDecorator(iShip);
+                    }
+                    bonusListTMP.add(bonusNode);
+                    bulletsTMP.put(node, bulletList.get(node));
+
+                }
+
+            }
         }
 
 
@@ -321,6 +345,10 @@ public class Game {
         for (Enemy enemy : enemiesTMP) {
             enemyList.remove(enemy);
             root.getChildren().remove(enemy.getView());
+        }
+        for (BonusNode bonusNode : bonusListTMP) {
+            bonusList.remove(bonusNode);
+            root.getChildren().remove(bonusNode.getView());
         }
 
 
@@ -410,4 +438,58 @@ public class Game {
         spawnFrequency = 3000;
     }
 
+
+    public void spawnBonus()
+    {
+        Random rand = new Random();
+        int randomNum = rand.nextInt((10 - 5) + 1) + 5;
+
+        if(ChronoUnit.SECONDS.between(timeLocal, LocalTime.now()) > randomNum)
+        {
+            addBonus();
+            timeLocal = LocalTime.now();
+        }
+
+    }
+
+    public void addBonus()
+    {
+        Random rand = new Random();
+        int randomBonus = rand.nextInt((3 - 1) + 1) + 1;
+        System.out.println(randomBonus);
+        if(randomBonus==1)
+        {
+            HeartNode heartNode = new HeartNode();
+            addBonusToMap(heartNode.getView());
+            bonusList.add(heartNode);
+
+
+        }
+        else if(randomBonus==2)
+        {
+            GunNode gunNode = new GunNode();
+            addBonusToMap(gunNode.getView());
+            bonusList.add(gunNode);
+
+        }
+        else
+        {
+            ImmortalNode immortalNode = new ImmortalNode();
+            addBonusToMap(immortalNode.getView());
+            bonusList.add(immortalNode);
+
+        }
+    }
+
+    public void addBonusToMap(Node view)
+    {
+        //zacząć odliczać czas do kolejnego spawnu
+
+        root.getChildren().add(view);
+
+    }
+    public void checkBonusCollision()
+    {
+
+    }
 }
