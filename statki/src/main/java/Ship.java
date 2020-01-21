@@ -13,7 +13,7 @@ public class Ship implements IShip {
     private static Image image;
     private static double WIDTH = 20;
     private static double HEIGTH = 40;
-    int HP = 50;
+    int HP = 1;
     BulletFactory bulletFactory;
     IBullet iBullet;
     private double xVelocity = 2;
@@ -79,6 +79,10 @@ public class Ship implements IShip {
 
     public void setVelocity(double x, double y) {
         this.xVelocity = x;
+        this.velocity = new Point2D(x, y);
+    }
+
+    public void setOnlyVelocity(int x, int y){
         this.velocity = new Point2D(x, y);
     }
 

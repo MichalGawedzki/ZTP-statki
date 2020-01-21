@@ -29,6 +29,11 @@ public class Gun extends Bonus {
     }
 
     @Override
+    public void setOnlyVelocity(int x, int y) {
+
+    }
+
+    @Override
     public IBullet shoot() {
         return iBullet;
     }

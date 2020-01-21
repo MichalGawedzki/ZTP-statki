@@ -36,6 +36,10 @@ public class Heart extends Bonus {
 
     }
 
+    @Override
+    public void setOnlyVelocity(int x, int y) {
+
+    }
 
 
 }

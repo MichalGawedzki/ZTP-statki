@@ -24,5 +24,10 @@ public class Immortality extends Bonus {
 
     }
 
+    @Override
+    public void setOnlyVelocity(int x, int y) {
+
+    }
+
     //todo
 }
