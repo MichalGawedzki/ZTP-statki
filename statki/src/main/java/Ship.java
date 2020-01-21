@@ -13,7 +13,7 @@ public class Ship implements IShip {
     private static Image image;
     private static double WIDTH = 20;
     private static double HEIGTH = 40;
-    int HP = 50;
+    int HP = 1;
     BulletFactory bulletFactory;
     IBullet iBullet;
     private double xVelocity = 2;
@@ -26,8 +26,8 @@ public class Ship implements IShip {
 //        this.view = new Rectangle(WIDTH, HEIGTH, Color.BLUE);
         Image image = new Image("img/ship.png");
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(80);
-        imageView.setFitWidth(80);
+        imageView.setFitHeight(40);
+        imageView.setFitWidth(40);
         this.view = imageView;
         bulletFactory = Game.getGame().getBulletFactory();
 
@@ -82,6 +82,10 @@ public class Ship implements IShip {
         this.velocity = new Point2D(x, y);
     }
 
+    public void setOnlyVelocity(int x, int y){
+        this.velocity = new Point2D(x, y);
+    }
+
     public Node getView() {
         return view;
     }
@@ -122,7 +126,6 @@ public class Ship implements IShip {
     }
 
     public void draw() {
-        System.out.println("draw");
 //        isTouchingBorder()
         view.setTranslateX(view.getTranslateX() + velocity.getX());
         if (Game.isTouchingBorder(view)) {

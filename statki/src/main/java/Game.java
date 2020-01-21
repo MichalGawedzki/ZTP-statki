@@ -1,25 +1,27 @@
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
-
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
+
 
 public class Game {
 
@@ -41,9 +43,10 @@ public class Game {
     private int level = 1;
     private Image background;
     //    private int weaponLevel = 2;
-    private int spawnFrequency = 6000; // time between each spawn in miliseconds
+    private int spawnFrequency = 2500; // time between each spawn in miliseconds
     private LocalTime lastSpawnTime = LocalTime.now();
     private BulletFactory bulletFactory = new BulletFactory();
+    private AnimationTimer timer;
 
     public BulletFactory getBulletFactory() {
         return bulletFactory;
@@ -121,6 +124,43 @@ public class Game {
         root.getChildren().add(hpLabel);
     }
 
+    private void gameOver() {
+
+        timer.stop();
+        Label gameOverText = new Label("GAME OVER\n\nLevel: " + level + "\nScore: " + score + "\n\nPress ENTER\nto play again\n\n" +
+                "Press BACKSPACE to\nsee the ranking");
+        gameOverText.setAlignment(Pos.CENTER);
+
+        root.getChildren().remove(levelLabel);
+        root.getChildren().remove(scoreLabel);
+        root.getChildren().remove(hpLabel);
+
+        gameOverText.setFont(new Font(25));
+        gameOverText.setTranslateX(50);
+        gameOverText.setTranslateY(50);
+        gameOverText.setOpacity(1);
+        gameOverText.setTextFill(Color.WHITE);
+        root.getChildren().add(gameOverText);
+
+        onGameOverKeyPressed();
+
+    }
+
+    private void onGameOverKeyPressed(){
+        window.getScene().setOnKeyPressed(e -> {
+
+            if (e.getCode() == KeyCode.ENTER) {
+                window.setScene(new Scene(new Pane()));
+                window.show();
+                startApp(window);
+            }
+            if (e.getCode() == KeyCode.BACK_SPACE) {
+                // todo wyswietlanie rankingu
+            }
+
+        });
+    }
+
     private void addEnemy() {
 
         if (ChronoUnit.MILLIS.between(lastSpawnTime, LocalTime.now()) > spawnFrequency) {
@@ -133,9 +173,12 @@ public class Game {
     }
 
     private void updateLabels() {
+
+        int hp = iShip.getHP() > 0 ? iShip.getHP() : 0;
+
         this.levelLabel.setText(" Level: " + level + " ");
         this.scoreLabel.setText(" Score: " + score + " ");
-        this.hpLabel.setText(" HP: " + iShip.getHP() + " ");
+        this.hpLabel.setText(" HP: " + hp + " ");
 
         root.getChildren().remove(levelLabel);
         root.getChildren().remove(scoreLabel);
@@ -143,6 +186,10 @@ public class Game {
         root.getChildren().add(levelLabel);
         root.getChildren().add(scoreLabel);
         root.getChildren().add(hpLabel);
+
+        if (iShip.getHP() <= 0) {
+            gameOver();
+        }
     }
 
     public void onUpdate() {
@@ -160,7 +207,7 @@ public class Game {
         for (Node node : bulletList.keySet()) {
             addBullet(node);
         }
-     //   bulletHashMapTMP.clear();
+        //   bulletHashMapTMP.clear();
 
 
         for (Node node : enemyBulletList.keySet()) {
@@ -179,7 +226,7 @@ public class Game {
         for (Enemy enemy : enemyList) {
             enemy.draw(root);
             if (ChronoUnit.MILLIS.between(enemy.getSpawnTime(), LocalTime.now()) > enemy.getShootFrequency()) {
-                Node startingPosition = enemy.shoot().spawn(enemy.getView().getTranslateX() + enemy.getView().getBoundsInParent().getWidth()/2, enemy.getView().getTranslateY());
+                Node startingPosition = enemy.shoot().spawn(enemy.getView().getTranslateX(), enemy.getView().getTranslateY());
                 enemyBulletList.put(startingPosition, enemy.shoot());
                 enemy.setSpawnTime(LocalTime.now());
             }
@@ -195,7 +242,7 @@ public class Game {
             } else if (e.getCode() == KeyCode.RIGHT) {
                 iShip.moveRight();
             } else if (e.getCode() == KeyCode.SPACE) {
-                Node startingPosition = iShip.shoot().spawn(iShip.getView().getTranslateX(),iShip.getView().getTranslateY());
+                Node startingPosition = iShip.shoot().spawn(iShip.getView().getTranslateX(), iShip.getView().getTranslateY());
                 bulletList.put(startingPosition, iShip.shoot());
             }
         });
@@ -203,14 +250,26 @@ public class Game {
 
     private void checkBulletBorder() {
         HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
+        HashMap<Node, IBullet> bulletsTMP1 = new HashMap<>();
         for (Node node : bulletList.keySet()) {
             if (node.getTranslateY() <= 0) {
                 bulletsTMP.put(node, bulletList.get(node));
             }
         }
+        for (Node node : enemyBulletList.keySet()) {
+            if (node.getTranslateY() >= Game.getHEIGTH()) {
+                bulletsTMP1.put(node, enemyBulletList.get(node));
+            }
+        }
+
         for (Node node : bulletsTMP.keySet()) {
             root.getChildren().remove(node);
             bulletList.remove(node);
+        }
+
+        for (Node node : bulletsTMP1.keySet()) {
+            root.getChildren().remove(node);
+            enemyBulletList.remove(node);
         }
     }
 
@@ -219,10 +278,10 @@ public class Game {
         HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
         ArrayList<Enemy> enemiesTMP = new ArrayList<>();
 
-        for(Node node : enemyBulletList.keySet()) {
-            if(distanceBetween(node, iShip.getView()) < 10){
+        for (Node node : enemyBulletList.keySet()) {
+            if (distanceBetween(node, iShip.getView()) < 10) {
                 iShip.gotHit(enemyBulletList.get(node).getPower());
-                if(iShip.getHP()<=0){
+                if (iShip.getHP() <= 0) {
                     //window.close();
                     //dodac powrot do menu czy zapis do rankingu
                 }
@@ -251,9 +310,8 @@ public class Game {
         }
 
 
-
         for (Node node : bulletsTMP.keySet()) {
-            if(bulletList.containsKey(node)) {
+            if (bulletList.containsKey(node)) {
                 bulletList.remove(node);
             } else
                 enemyBulletList.remove(node);
@@ -266,13 +324,11 @@ public class Game {
         }
 
 
-
-
     }
 
     private void levelUp() {
 
-        if (score >= level * 50 * level && score <= level * 100 * level) {
+        if (score >= level * 10 && score <= level * 20 && level < 7) {
             level++;
             System.out.println("level: " + level + " score: " + score);
             iShip.setWeaponLevel(level);
@@ -321,14 +377,17 @@ public class Game {
         root.setBackground(new Background(myBI));
         scene = new Scene(root);
         window.setScene(scene);
+
+
         iShip = Ship.getShipInstance();
+        resetData();
         System.out.println("hp: " + iShip.getHP());
         addLabels();
         updateLabels();
         addShip(iShip, Game.WIDTH / 2, Game.HEIGTH * 9 / 10);
 
 
-        AnimationTimer timer = new AnimationTimer() {
+        timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 onUpdate();
@@ -336,7 +395,19 @@ public class Game {
         };
         timer.start();
         checkKeyPressed();
-        window.show();
+//        window.show();
+    }
+
+    private void resetData(){
+        level = 1;
+        score = 0;
+        iShip.setHP(5);
+        iShip.setOnlyVelocity(0, 0);
+        enemyBulletList.clear();
+        enemyList.clear();
+        bulletFactory = new BulletFactory();
+        bulletList.clear();
+        spawnFrequency = 3000;
     }
 
 }

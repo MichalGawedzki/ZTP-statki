@@ -14,9 +14,12 @@ public class Main extends Application {
     }
 
     public void start(Stage stage) throws Exception {
+        stage.show();
         System.out.println("halo");
         Game game = Game.getGame();
         game.startApp(stage);
     }
+
+
 
 }

@@ -29,6 +29,8 @@ public interface IShip {
 
     int getHP();
 
+    void setOnlyVelocity(int x, int y);
+
     void setHP(int dx);
 
     IBullet getBullet();
