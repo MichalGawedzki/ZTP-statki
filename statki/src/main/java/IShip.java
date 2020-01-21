@@ -42,5 +42,5 @@ public interface IShip {
 
     void gotHit(int power);
 
-    IShip undecorete();
+    IShip undecorate() throws IOException;
 }
