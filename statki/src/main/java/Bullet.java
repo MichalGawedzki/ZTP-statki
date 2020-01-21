@@ -5,6 +5,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.io.IOException;
+
 public class Bullet implements IBullet {
 
     int index;
@@ -97,7 +99,7 @@ public class Bullet implements IBullet {
     }
 
     @Override
-    public Node spawn(double xx, double yy) {
+    public Node spawn(double xx, double yy) throws IOException {
 //        double xx = iShip.getView().getTranslateX();
 //        double yy = iShip.getView().getTranslateY();
 //        Node startingPosition = new Circle(5, 5, 5, Color.RED);

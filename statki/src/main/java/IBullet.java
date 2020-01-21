@@ -1,5 +1,7 @@
 import javafx.scene.Node;
 
+import java.io.IOException;
+
 public interface IBullet {
 
 //    Node getView();
@@ -7,6 +9,6 @@ public interface IBullet {
 //    void setView(Node node);
 
     Node draw(Node node);
-    Node spawn(double xx, double yy);
+    Node spawn(double xx, double yy) throws IOException;
     int getPower();
 }

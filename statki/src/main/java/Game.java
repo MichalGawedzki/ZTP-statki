@@ -1,20 +1,25 @@
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 
 import javafx.scene.control.Label;
 
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -27,7 +32,16 @@ public class Game {
     private static final int HEIGTH = 500;
     private static final int WIDTH = 500;
     private static Stage window;
-    private static Game game = new Game();
+    private static Game game;
+
+    static {
+        try {
+            game = new Game();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Scene scene;
     private Pane root;
     private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
@@ -47,12 +61,22 @@ public class Game {
     private LocalTime timeLocal = LocalTime.now();
     private BulletFactory bulletFactory = new BulletFactory();
     private AnimationTimer timer;
+    private Ranking ranking = new Ranking();
+    private Label gameOverText;
+    private TextField playerName = new TextField();
+    private boolean scoreSaved;
+
+
+
+    public BulletFactory getBulletFactory() {
+        return bulletFactory;
+    }
     private Node view;
     private ImageView heartBonusImage;
     private ImageView immortalityBonusImage;
     private ImageView gunBonusImage;
 
-    private Game() {
+    private Game() throws IOException {
         lastSpawnTime = LocalTime.now();
     }
 
@@ -60,13 +84,13 @@ public class Game {
         return HEIGTH;
     }
 
+    //private Ranking ranking;
+
     public static int getWIDTH() {
         return WIDTH;
     }
 
-    //private Ranking ranking;
-
-    public static Game getGame() {
+    public static Game getGame() throws IOException {
         if (game != null) {
             return game;
         } else {
@@ -85,9 +109,9 @@ public class Game {
         return false;
     }
 
-    public BulletFactory getBulletFactory() {
-        return bulletFactory;
-    }
+//    public BulletFactory getBulletFactory() {
+//        return bulletFactory;
+//    }
 
     private void addHeartBonusLabel(){
         Image image = new Image("img/heart_label.png");
@@ -160,9 +184,12 @@ public class Game {
     private void gameOver() {
 
         timer.stop();
-        Label gameOverText = new Label("GAME OVER\n\nLevel: " + level + "\nScore: " + score + "\n\nPress ENTER\nto play again\n\n" +
-                "Press BACKSPACE to\nsee the ranking");
+        gameOverText = new Label("GAME OVER\n\nLevel: " + level + "\nScore: " + score + "\n\nPress ENTER\nto play again\n\n" +
+                "Press ESCAPE to\nsee the ranking");
+      //  TextField playerName = new TextField();
+        playerName.setText("Player");
         gameOverText.setAlignment(Pos.CENTER);
+        playerName.setAlignment(Pos.CENTER);
 
         root.getChildren().remove(levelLabel);
         root.getChildren().remove(scoreLabel);
@@ -173,7 +200,16 @@ public class Game {
         gameOverText.setTranslateY(50);
         gameOverText.setOpacity(1);
         gameOverText.setTextFill(Color.WHITE);
+
+        playerName.setFont(new Font(20));
+        playerName.setTranslateX(50);
+        playerName.setTranslateY(430);
+        playerName.setOpacity(1);
+        playerName.setStyle("-fx-text-inner-color: green;");
+        playerName.setVisible(true);
+
         root.getChildren().add(gameOverText);
+        root.getChildren().add(playerName);
 
         onGameOverKeyPressed();
 
@@ -185,16 +221,31 @@ public class Game {
             if (e.getCode() == KeyCode.ENTER) {
                 window.setScene(new Scene(new Pane()));
                 window.show();
-                startApp(window);
+                try {
+                    startApp(window);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
-            if (e.getCode() == KeyCode.BACK_SPACE) {
+            if (e.getCode() == KeyCode.ESCAPE) {
                 // todo wyswietlanie rankingu
+                if(!scoreSaved) {
+                    ranking.addtoList(new RankPos(score, playerName.getText()));
+                    scoreSaved = true;
+                }
+                gameOverText.setText(ranking.highScoreToText() + "Click ENTER to start new round :)");
+                playerName.setVisible(false);
+                try {
+                    ranking.saveToFile();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
 
         });
     }
 
-    private void addEnemy() {
+    private void addEnemy() throws IOException {
 
         if (ChronoUnit.MILLIS.between(lastSpawnTime, LocalTime.now()) > spawnFrequency) {
             Enemy enemy = new Enemy(level);
@@ -225,7 +276,7 @@ public class Game {
         }
     }
 
-    public void onUpdate() {
+    public void onUpdate() throws IOException {
         HashMap<Node, IBullet> bulletHashMapTMP = new HashMap<>();
         HashMap<Node, IBullet> bulletHashMapTMP2 = new HashMap<>();
         updateLabels();
@@ -296,7 +347,12 @@ public class Game {
             } else if (e.getCode() == KeyCode.RIGHT) {
                 iShip.moveRight();
             } else if (e.getCode() == KeyCode.SPACE) {
-                Node startingPosition = iShip.shoot().spawn(iShip.getView().getTranslateX(), iShip.getView().getTranslateY());
+                Node startingPosition = null;
+                try {
+                    startingPosition = iShip.shoot().spawn(iShip.getView().getTranslateX(), iShip.getView().getTranslateY());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
                 bulletList.put(startingPosition, iShip.shoot());
             }
         });
@@ -327,7 +383,7 @@ public class Game {
         }
     }
 
-    private void checkCollisions() {
+    private void checkCollisions() throws IOException {
 //        System.out.println(distanceBetween(iShip.getView(), enemyList.get(0).getView()));
         HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
         ArrayList<Enemy> enemiesTMP = new ArrayList<>();
@@ -336,10 +392,7 @@ public class Game {
         for (Node node : enemyBulletList.keySet()) {
             if (distanceBetween(node, iShip.getView()) < 10) {
                 iShip.gotHit(enemyBulletList.get(node).getPower());
-                if (iShip.getHP() <= 0) {
-                    //window.close();
-                    //dodac powrot do menu czy zapis do rankingu
-                }
+
                 bulletsTMP.put(node, enemyBulletList.get(node));
             }
         }
@@ -443,7 +496,7 @@ public class Game {
         return false;
     }
 
-    public void startApp(Stage stage) {
+    public void startApp(Stage stage) throws IOException {
         window = stage;
         //window.setResizable(false);
         window.setTitle("Statki");
@@ -468,7 +521,11 @@ public class Game {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                onUpdate();
+                try {
+                    onUpdate();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         };
         timer.start();
@@ -480,12 +537,14 @@ public class Game {
         level = 1;
         score = 0;
         iShip.setHP(5);
+        iShip.setWeaponLevel(1);
         iShip.setOnlyVelocity(0, 0);
         enemyBulletList.clear();
         enemyList.clear();
         bulletFactory = new BulletFactory();
         bulletList.clear();
         spawnFrequency = 3000;
+        scoreSaved = false;
     }
 
 

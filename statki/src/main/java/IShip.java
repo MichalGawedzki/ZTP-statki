@@ -1,5 +1,7 @@
 import javafx.scene.Node;
 
+import java.io.IOException;
+
 public interface IShip {
 
     void moveLeft();
@@ -12,7 +14,7 @@ public interface IShip {
 
     void getInstance();
 
-    static IShip getShipInstance() {
+    static IShip getShipInstance() throws IOException {
         return Ship.getShipInstance();
     }
 
