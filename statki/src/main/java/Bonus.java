@@ -1,11 +1,13 @@
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
@@ -14,6 +16,7 @@ public abstract class Bonus implements IShip{
 
 
     protected IShip iShip;
+
 
 
     public Bonus(IShip iShip)
@@ -102,7 +105,13 @@ public abstract class Bonus implements IShip{
     }
 
     @Override
-    public IShip undecorete() {
+    public IShip undecorate() throws IOException {
         return iShip;
     }
+
+
+
+
+
+
 }

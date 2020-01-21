@@ -2,6 +2,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
@@ -13,10 +14,11 @@ public class HeartDecorator extends Bonus {
     private int spawnFrequency = 1000;
     private int duration = 5;
     private LocalTime spawnTime;
+    private ImageView heartBonusImage;
 
-    public HeartDecorator(IShip iShip)
-    {
+    public HeartDecorator(IShip iShip) throws IOException {
         super(iShip);
+        addHeartBonusLabel();
         System.out.println("got Heart");
         spawnTime = LocalTime.now();
     }
@@ -55,5 +57,20 @@ public class HeartDecorator extends Bonus {
     @Override
     public void gotHit(int power) {
         super.gotHit(power);
+    }
+
+    private void addHeartBonusLabel() throws IOException {
+        Image image = new Image("img/heart_label.png");
+        heartBonusImage = new ImageView(image);
+        heartBonusImage.setTranslateX(480);
+        heartBonusImage.setFitWidth(20);
+        heartBonusImage.setFitHeight(20);
+        Game.getGame().getRoot().getChildren().add(heartBonusImage);
+    }
+
+    @Override
+    public IShip undecorate() throws IOException {
+        Game.getGame().getRoot().getChildren().remove(heartBonusImage);
+        return super.undecorate();
     }
 }

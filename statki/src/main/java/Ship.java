@@ -141,7 +141,7 @@ public class Ship implements IShip {
     }
 
     @Override
-    public IShip undecorete() {
+    public IShip undecorate() {
         return this;
     }
 
