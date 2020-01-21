@@ -28,13 +28,16 @@ public class Enemy {
     private int range = max - min + 1;
 
     private LocalTime spawnTime;
+    int level;
 
     public int getHP() {
         return HP;
     }
 
     public Enemy(int level) {
+        this.level = level;
         HP = level * 2;
+
 
         Image image = new Image("img/enemy1.png");
         ImageView imageView = new ImageView(image);
@@ -96,7 +99,7 @@ public class Enemy {
     }
 
     public IBullet shoot() {
-        iBullet = bulletFactory.getBullet(-2);
+        iBullet = bulletFactory.getBullet(level*(-1));
         return iBullet;
     }
 

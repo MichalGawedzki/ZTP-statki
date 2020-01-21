@@ -40,7 +40,6 @@ public class HeartDecorator extends Bonus {
 
         }
         if (ChronoUnit.SECONDS.between(spawnTime, LocalTime.now())>duration) {
-            System.out.println("return 1");
             return 1;
         }
         return 0;

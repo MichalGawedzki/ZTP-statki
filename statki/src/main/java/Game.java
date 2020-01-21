@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -47,6 +48,9 @@ public class Game {
     private BulletFactory bulletFactory = new BulletFactory();
     private AnimationTimer timer;
     private Node view;
+    private ImageView heartBonusImage;
+    private ImageView immortalityBonusImage;
+    private ImageView gunBonusImage;
 
     private Game() {
         lastSpawnTime = LocalTime.now();
@@ -83,6 +87,35 @@ public class Game {
 
     public BulletFactory getBulletFactory() {
         return bulletFactory;
+    }
+
+    private void addHeartBonusLabel(){
+        Image image = new Image("img/heart_label.png");
+        heartBonusImage = new ImageView(image);
+        heartBonusImage.setTranslateX(480);
+        heartBonusImage.setFitWidth(20);
+        heartBonusImage.setFitHeight(20);
+        root.getChildren().add(heartBonusImage);
+    }
+
+    private void addGunBonusLabel(){
+        Image image = new Image("img/gun_label.png");
+        gunBonusImage = new ImageView(image);
+        gunBonusImage.setTranslateX(480);
+        gunBonusImage.setTranslateY(25);
+        gunBonusImage.setFitWidth(20);
+        gunBonusImage.setFitHeight(20);
+        root.getChildren().add(gunBonusImage);
+    }
+
+    private void addImmortalityBonusLabel(){
+        Image image = new Image("img/immortality_label.png");
+        immortalityBonusImage = new ImageView(image);
+        immortalityBonusImage.setTranslateX(480);
+        immortalityBonusImage.setTranslateY(50);
+        immortalityBonusImage.setFitWidth(20);
+        immortalityBonusImage.setFitHeight(20);
+        root.getChildren().add(immortalityBonusImage);
     }
 
     public void addShip(IShip ship, double x, double y) {
@@ -198,6 +231,7 @@ public class Game {
         updateLabels();
 //        iShip.draw();
         spawnBonus();
+
         for (Node node : bulletList.keySet()) {
             root.getChildren().remove(node);
             IBullet iBullet = bulletList.get(node);
@@ -237,6 +271,15 @@ public class Game {
 
         if (iShip.draw() == 1) {
             System.out.println("undecorate");
+            if(iShip instanceof HeartDecorator){
+                root.getChildren().remove(heartBonusImage);
+            }
+            else if(iShip instanceof GunDecorator){
+                root.getChildren().remove(gunBonusImage);
+            }
+            else if(iShip instanceof ImmortalityDecorator){
+                root.getChildren().remove(immortalityBonusImage);
+            }
             iShip = iShip.undecorete();
         }
 //        else {
@@ -323,10 +366,13 @@ public class Game {
 
                 if (distanceBetween(node, bonusNode.getView()) < 10) {
                     if (bonusNode instanceof HeartNode) {
+                        addHeartBonusLabel();
                         iShip = new HeartDecorator(iShip);
                     } else if (bonusNode instanceof GunNode) {
+                        addGunBonusLabel();
                         iShip = new GunDecorator(iShip);
                     } else if (bonusNode instanceof ImmortalNode) {
+                        addImmortalityBonusLabel();
                         iShip = new ImmortalityDecorator(iShip);
                     }
                     bonusListTMP.add(bonusNode);

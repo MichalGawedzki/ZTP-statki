@@ -24,7 +24,7 @@ public class Bullet implements IBullet {
     Bullet(int index) {
         this.index = index;
 //        view = new Circle(5, 5, 5, Color.RED);
-        if (index == -3) {
+        if (index <= -3) {
             power = 5;
             velocity = 4;
             color = Color.PURPLE;
@@ -63,7 +63,7 @@ public class Bullet implements IBullet {
             color = Color.CORAL;
             pathToImg = "img/bullet_yellow.png";
             System.out.println("new Bullet object CORAL");
-        } else /*if (index == 3)*/{
+        } else if (index >= 3){
             power = 3;
             velocity = -3;
             color = Color.RED;
