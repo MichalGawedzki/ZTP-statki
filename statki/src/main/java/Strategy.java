@@ -3,6 +3,6 @@ import javafx.scene.Node;
 
 public interface Strategy {
 
-    void move(Node node, double xVelocity, Point2D velocity, IShip iShip);
+    int move(Node node, Point2D velocity, IShip iShip);
 
 }

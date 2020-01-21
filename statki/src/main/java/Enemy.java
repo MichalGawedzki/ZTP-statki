@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
 import java.time.LocalTime;
 import java.util.Random;
 
-public class Enemy{
+public class Enemy {
 
     private int HP;
     private int frequency;
@@ -25,12 +25,16 @@ public class Enemy{
     private double shootFrequency; // time between each shoot in miliseconds
     private int max = 5;
     private int min = 2;
-    private int range = max - min + 1 ;
+    private int range = max - min + 1;
 
     private LocalTime spawnTime;
 
-    public Enemy(int level){
-        HP = level*2;
+    public int getHP() {
+        return HP;
+    }
+
+    public Enemy(int level) {
+        HP = level * 2;
 
         Image image = new Image("img/enemy1.png");
         ImageView imageView = new ImageView(image);
@@ -41,31 +45,43 @@ public class Enemy{
 //        this.view = new Rectangle(20, 40, Color.VIOLET);
         bulletFactory = Game.getGame().getBulletFactory();
         view.setTranslateY(10);
-        view.setTranslateX(Math.random()*(Game.getWIDTH() - view.getBoundsInParent().getWidth()));
-        xVelocity = Math.random()*4-1;
+        view.setTranslateX(Math.random() * (Game.getWIDTH() - view.getBoundsInParent().getWidth()));
+        xVelocity = Math.random() * 4 - 1;
         velocity = new Point2D(xVelocity, 0);
-        shootFrequency = ((Math.random() * range) + min ) * 1000;
+        shootFrequency = ((Math.random() * range) + min) * 1000;
         spawnTime = LocalTime.now();
 //        view.setTranslateX(11);
         if (level <= 4) strategy = new RandomStrategy();
         else strategy = new FollowStrategy();
     }
 
-    public void draw(Pane root){
+    public void draw(Pane root) {
 //        root.getChildren().remove(view);
 ////        root.getChildren().add(view);
 
 
-        strategy.move(view, xVelocity, velocity, IShip.getShipInstance());
+//        strategy.move(view, velocity, IShip.getShipInstance());
+//        xVelocity *= strategy.move(view, velocity, IShip.getShipInstance());
+//        velocity = new Point2D(xVelocity, 0);
+//        view.setTranslateX(view.getTranslateX() + velocity.getX());
+//        if (Game.isTouchingBorder(view)) {
+//            xVelocity = -xVelocity;
+//            velocity = new Point2D(xVelocity, 0);
+//        }
 
-//        view.setTranslateX(view.getTranslateX() + velocity.getX()*strategy.move(view, IShip.getShipInstance()));
+        int direction = strategy.move(view, velocity, IShip.getShipInstance());
+        xVelocity = Math.abs(xVelocity) * direction;
+        velocity = new Point2D(xVelocity, 0);
+        view.setTranslateX(view.getTranslateX() + xVelocity);
+
+//        view.setTranslateX(view.getTranslateX() + velocity.getX());
 //        if (Game.isTouchingBorder(view)) {
 //            xVelocity = -xVelocity;
 //            velocity = new Point2D(xVelocity, 0);
 //        }
     }
 
-    public void gotHit(){
+    public void gotHit() {
         this.HP -= IShip.getShipInstance().getBullet().getPower();
     }
 
@@ -74,8 +90,8 @@ public class Enemy{
     }
 
     public boolean isAlive() {
-        if(HP<=0)
-        alive = false;
+        if (HP <= 0)
+            alive = false;
         return alive;
     }
 

@@ -49,7 +49,7 @@ public class Bullet implements IBullet {
             power = 20;
             velocity = -5;
             color = Color.PURPLE;
-            pathToImg = "img/bullet_enemy.png";
+            pathToImg = "img/bullet_premium.png";
             System.out.println("new SUPA BULLET");
         } else if (index == 1) {
             power = 1;
@@ -63,7 +63,7 @@ public class Bullet implements IBullet {
             color = Color.CORAL;
             pathToImg = "img/bullet_yellow.png";
             System.out.println("new Bullet object CORAL");
-        } else if (index == 3){
+        } else /*if (index == 3)*/{
             power = 3;
             velocity = -3;
             color = Color.RED;
@@ -81,7 +81,7 @@ public class Bullet implements IBullet {
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
-        if(index == 0){
+        if(index < 0){
             imageView.setRotate(135);
         }
         Node newNode = imageView;
@@ -109,7 +109,6 @@ public class Bullet implements IBullet {
 //        double xx = IShip.getShipInstance().getView().getTranslateX();
 //        double yy = IShip.getShipInstance().getView().getTranslateY();
         Node view = new Circle(5, 5, 5, Color.RED);
-        System.out.println(IShip.getShipInstance().getView().getBoundsInParent().getWidth());
         view.setTranslateX(xx+IShip.getShipInstance().getView().getBoundsInParent().getWidth()/4);
         view.setTranslateY(yy);
         return view;

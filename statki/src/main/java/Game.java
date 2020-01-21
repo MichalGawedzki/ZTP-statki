@@ -284,7 +284,7 @@ public class Game {
 
     private void levelUp() {
 
-        if (score >= level * 50 * level && score <= level * 100 * level) {
+        if (score >= level * 10 && score <= level * 20 && level <7) {
             level++;
             System.out.println("level: " + level + " score: " + score);
             iShip.setWeaponLevel(level);
