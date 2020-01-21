@@ -1,5 +1,4 @@
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 
 import java.io.IOException;
 
@@ -19,7 +18,7 @@ public interface IShip {
         return Ship.getShipInstance();
     }
 
-    void draw();
+    int draw();
 
     Node getView();
 
@@ -42,4 +41,6 @@ public interface IShip {
     void setWeaponLevel(int weaponLevel);
 
     void gotHit(int power);
+
+    IShip undecorete();
 }
