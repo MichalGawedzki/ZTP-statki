@@ -26,7 +26,7 @@ public class Bullet implements IBullet {
 //        view = new Circle(5, 5, 5, Color.RED);
         if (index == -3) {
             power = 5;
-            velocity = 3;
+            velocity = 4;
             color = Color.PURPLE;
             pathToImg = "img/bullet_enemy.png";
             System.out.println("new Bullet object PURPLE");
@@ -55,7 +55,7 @@ public class Bullet implements IBullet {
             power = 1;
             velocity = -1;
             color = Color.GREEN;
-            pathToImg = "img/bullet_yellow.png";
+            pathToImg = "img/bullet_gold.png";
             System.out.println("new Bullet object GREEN");
         } else if (index == 2) {
             power = 2;
@@ -67,7 +67,7 @@ public class Bullet implements IBullet {
             power = 3;
             velocity = -3;
             color = Color.RED;
-            pathToImg = "img/bullet_yellow.png";
+            pathToImg = "img/bullet_blue.png";
             System.out.println("new Bullet object RED");
         }
         image = new Image(pathToImg);
@@ -83,6 +83,9 @@ public class Bullet implements IBullet {
         imageView.setFitWidth(20);
         if(index < 0){
             imageView.setRotate(135);
+        }
+        if(index >=3 ){
+            imageView.setRotate(-45);
         }
         Node newNode = imageView;
 
