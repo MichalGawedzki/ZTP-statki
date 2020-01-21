@@ -184,8 +184,8 @@ public class Game {
     private void gameOver() {
 
         timer.stop();
-        gameOverText = new Label("GAME OVER\n\nLevel: " + level + "\nScore: " + score + "\n\nPress ENTER\nto play again\n\n" +
-                "Press ESCAPE to\nsee the ranking");
+        gameOverText = new Label("GAME OVER\n\nLevel: " + level + "\nScore: " + score + "\n\nPress CTRL to play again\n\n" +
+                "Press ENTER to save your score\nand see the Top 5 Ranking");
       //  TextField playerName = new TextField();
         playerName.setText("Player");
         gameOverText.setAlignment(Pos.CENTER);
@@ -199,11 +199,14 @@ public class Game {
         gameOverText.setTranslateX(50);
         gameOverText.setTranslateY(50);
         gameOverText.setOpacity(1);
-        gameOverText.setTextFill(Color.WHITE);
+        gameOverText.setTextFill(Color.BLACK);
+        gameOverText.getStyleClass().add("outline");
+        Color c = new Color(0,0,0,0.55);
+        gameOverText.setBackground(new Background(new BackgroundFill(c, CornerRadii.EMPTY, new Insets(-100,-100,-100,-100))));
 
-        playerName.setFont(new Font(20));
+        playerName.setFont(new Font(22));
         playerName.setTranslateX(50);
-        playerName.setTranslateY(430);
+        playerName.setTranslateY(420);
         playerName.setOpacity(1);
         playerName.setStyle("-fx-text-inner-color: green;");
         playerName.setVisible(true);
@@ -218,7 +221,7 @@ public class Game {
     private void onGameOverKeyPressed() {
         window.getScene().setOnKeyPressed(e -> {
 
-            if (e.getCode() == KeyCode.ENTER) {
+            if (e.getCode() == KeyCode.CONTROL) {
                 window.setScene(new Scene(new Pane()));
                 window.show();
                 try {
@@ -227,13 +230,12 @@ public class Game {
                     ex.printStackTrace();
                 }
             }
-            if (e.getCode() == KeyCode.ESCAPE) {
-                // todo wyswietlanie rankingu
+            if (e.getCode() == KeyCode.ENTER) {
                 if(!scoreSaved) {
                     ranking.addtoList(new RankPos(score, playerName.getText()));
                     scoreSaved = true;
                 }
-                gameOverText.setText(ranking.highScoreToText() + "Click ENTER to start new round :)");
+                gameOverText.setText(ranking.highScoreToText() + "Click CTRL to start new round :)");
                 playerName.setVisible(false);
                 try {
                     ranking.saveToFile();
@@ -342,7 +344,9 @@ public class Game {
 
     private void checkKeyPressed() {
         window.getScene().setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.LEFT) {
+            if(e.getCode() == KeyCode.ESCAPE){
+                gameOver();
+            } else if (e.getCode() == KeyCode.LEFT) {
                 iShip.moveLeft();
             } else if (e.getCode() == KeyCode.RIGHT) {
                 iShip.moveRight();
@@ -507,6 +511,9 @@ public class Game {
                 BackgroundSize.DEFAULT);
         root.setBackground(new Background(myBI));
         scene = new Scene(root);
+        scene.getStylesheets().addAll(getClass().getResource(
+                "outline.css"
+        ).toExternalForm());
         window.setScene(scene);
 
 
