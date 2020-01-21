@@ -1,5 +1,6 @@
 PotężnyBożydar 1274
+playerPlayer 962
+AdvTest 755
+michal 670
 :O 353
 Player 100
-Player 50
-Tescik12 44

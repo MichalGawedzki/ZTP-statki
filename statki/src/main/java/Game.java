@@ -69,6 +69,7 @@ public class Game {
     public BulletFactory getBulletFactory() {
         return bulletFactory;
     }
+
     private Node view;
 
 
@@ -108,7 +109,6 @@ public class Game {
 //    public BulletFactory getBulletFactory() {
 //        return bulletFactory;
 //    }
-
 
 
     public void addShip(IShip ship, double x, double y) {
@@ -155,7 +155,7 @@ public class Game {
         timer.stop();
         gameOverText = new Label("GAME OVER\n\nLevel: " + level + "\nScore: " + score + "\n\nPress CTRL to play again\n\n" +
                 "Press ENTER to save your score\nand see the Top 5 Ranking");
-      //  TextField playerName = new TextField();
+        //  TextField playerName = new TextField();
         playerName.setText("Player");
         gameOverText.setAlignment(Pos.CENTER);
         playerName.setAlignment(Pos.CENTER);
@@ -170,8 +170,8 @@ public class Game {
         gameOverText.setOpacity(1);
         gameOverText.setTextFill(Color.BLACK);
         gameOverText.getStyleClass().add("outline");
-        Color c = new Color(0,0,0,0.55);
-        gameOverText.setBackground(new Background(new BackgroundFill(c, CornerRadii.EMPTY, new Insets(-100,-100,-100,-100))));
+        Color c = new Color(0, 0, 0, 0.55);
+        gameOverText.setBackground(new Background(new BackgroundFill(c, CornerRadii.EMPTY, new Insets(-100, -100, -100, -100))));
 
         playerName.setFont(new Font(22));
         playerName.setTranslateX(50);
@@ -200,7 +200,7 @@ public class Game {
                 }
             }
             if (e.getCode() == KeyCode.ENTER) {
-                if(!scoreSaved) {
+                if (!scoreSaved) {
                     ranking.addtoList(new RankPos(score, playerName.getText()));
                     scoreSaved = true;
                 }
@@ -298,10 +298,9 @@ public class Game {
     }
 
 
-
     private void checkKeyPressed() {
         window.getScene().setOnKeyPressed(e -> {
-            if(e.getCode() == KeyCode.ESCAPE){
+            if (e.getCode() == KeyCode.ESCAPE) {
                 gameOver();
             } else if (e.getCode() == KeyCode.LEFT) {
                 iShip.moveLeft();
@@ -419,7 +418,6 @@ public class Game {
 
         if (score >= level * 10 && score <= level * 20 && level < 7) {
             level++;
-            System.out.println("level: " + level + " score: " + score);
             iShip.setWeaponLevel(level);
             spawnFrequency *= 0.85;
         }
@@ -497,7 +495,7 @@ public class Game {
     private void resetData() {
         level = 1;
         score = 0;
-        iShip.setHP(5);
+        iShip.setHP(50);
         iShip.setWeaponLevel(1);
         iShip.setOnlyVelocity(0, 0);
         enemyBulletList.clear();
@@ -544,10 +542,7 @@ public class Game {
     }
 
     public void addBonusToMap(Node view) {
-        //zacząć odliczać czas do kolejnego spawnu
-
         root.getChildren().add(view);
-
     }
 
 

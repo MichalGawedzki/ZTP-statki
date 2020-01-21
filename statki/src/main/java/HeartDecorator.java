@@ -1,4 +1,3 @@
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -33,14 +32,13 @@ public class HeartDecorator extends Bonus {
 
         iShip.draw();
         int currentHP = iShip.getHP();
-        if((ChronoUnit.MILLIS.between(time, LocalTime.now()) > spawnFrequency) && (currentHP<=50))
-        {
-            iShip.setHP(currentHP+addhp);
+        if ((ChronoUnit.MILLIS.between(time, LocalTime.now()) > spawnFrequency) && (currentHP <= 50)) {
+            iShip.setHP(currentHP + addhp);
             time = LocalTime.now();
 
 
         }
-        if (ChronoUnit.SECONDS.between(spawnTime, LocalTime.now())>duration) {
+        if (ChronoUnit.SECONDS.between(spawnTime, LocalTime.now()) > duration) {
             return 1;
         }
         return 0;

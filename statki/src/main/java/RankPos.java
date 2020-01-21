@@ -1,4 +1,4 @@
-public class RankPos implements Comparable<RankPos>{
+public class RankPos implements Comparable<RankPos> {
 
     public RankPos(Integer score, String name) {
         this.score = score;

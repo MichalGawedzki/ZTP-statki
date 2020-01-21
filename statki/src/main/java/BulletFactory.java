@@ -7,7 +7,6 @@ public class BulletFactory {
     public IBullet getBullet(int idx) {
         if (!bullets.containsKey(idx))
             bullets.put(idx, new Bullet(idx));
-
         return bullets.get(idx);
     }
 }

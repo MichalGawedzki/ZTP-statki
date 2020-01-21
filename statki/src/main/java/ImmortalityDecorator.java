@@ -25,9 +25,8 @@ public class ImmortalityDecorator extends Bonus {
     @Override
     public int draw() {
 
-       iShip.draw();
-        if(ChronoUnit.MILLIS.between(timeLocal, LocalTime.now()) > time)
-        {
+        iShip.draw();
+        if (ChronoUnit.MILLIS.between(timeLocal, LocalTime.now()) > time) {
             return 1;
         }
         return 0;
@@ -38,8 +37,6 @@ public class ImmortalityDecorator extends Bonus {
     public void setOnlyVelocity(int x, int y) {
 
     }
-
-    //todo
 
     private void addImmortalityBonusLabel() throws IOException {
         Image image = new Image("img/immortality_label.png");

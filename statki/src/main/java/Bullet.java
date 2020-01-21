@@ -17,7 +17,6 @@ public class Bullet implements IBullet {
 
     int power;
     int velocity;
-//    private Node view;
     Color color;
     private String pathToImg;
     Image image;
@@ -25,29 +24,25 @@ public class Bullet implements IBullet {
 
     Bullet(int index) {
         this.index = index;
-//        view = new Circle(5, 5, 5, Color.RED);
         if (index <= -5) {
             power = 5;
             velocity = 4;
             color = Color.PURPLE;
             pathToImg = "img/bullet_enemy.png";
             System.out.println("new Bullet object PURPLE");
-        } else
-        if (index == -3 || index == -4) {
+        } else if (index == -3 || index == -4) {
             power = 4;
             velocity = 3;
             color = Color.PURPLE;
             pathToImg = "img/bullet_enemy.png";
             System.out.println("new Bullet object PURPLE");
-        } else
-        if (index == -1 || index == -2) {
+        } else if (index == -1 || index == -2) {
             power = 3;
             velocity = 3;
             color = Color.PURPLE;
             pathToImg = "img/bullet_enemy.png";
             System.out.println("new Bullet object PURPLE");
-        } else
-        if (index == 0) {
+        } else if (index == 0) {
             power = 20;
             velocity = -5;
             color = Color.PURPLE;
@@ -57,15 +52,15 @@ public class Bullet implements IBullet {
             power = 1;
             velocity = -1;
             color = Color.GREEN;
-            pathToImg = "img/bullet_gold.png";
+            pathToImg = "img/bullet_yellow.png";
             System.out.println("new Bullet object GREEN");
         } else if (index == 3 || index == 4) {
             power = 2;
             velocity = -2;
             color = Color.CORAL;
-            pathToImg = "img/bullet_yellow.png";
+            pathToImg = "img/bullet_gold.png";
             System.out.println("new Bullet object CORAL");
-        } else if (index >= 5){
+        } else if (index >= 5) {
             power = 3;
             velocity = -3;
             color = Color.RED;
@@ -79,19 +74,17 @@ public class Bullet implements IBullet {
     @Override
     public Node draw(Node view) {
 
-//        Image image = new Image(pathToImg);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
-        if(index < 0){
+        if (index < 0) {
             imageView.setRotate(135);
         }
-        if(index >=3 ){
+        if (index >= 5) {
             imageView.setRotate(-45);
         }
         Node newNode = imageView;
 
-//        Node newNode = new Circle(5, 5, 5, color);
         newNode.setTranslateY(view.getTranslateY() + velocity);
         newNode.setTranslateX(view.getTranslateX());
 
@@ -100,29 +93,11 @@ public class Bullet implements IBullet {
 
     @Override
     public Node spawn(double xx, double yy) throws IOException {
-//        double xx = iShip.getView().getTranslateX();
-//        double yy = iShip.getView().getTranslateY();
-//        Node startingPosition = new Circle(5, 5, 5, Color.RED);
-//        startingPosition.setTranslateX(xx);
-//        startingPosition.setTranslateY(yy);
-//        bulletList.put(startingPosition, iShip.shoot(weaponLevel));
-//        addBullet(startingPosition);
-////                addBullet(iShip);
-//        System.out.println(bulletList);
 
-
-//        double xx = IShip.getShipInstance().getView().getTranslateX();
-//        double yy = IShip.getShipInstance().getView().getTranslateY();
         Node view = new Circle(5, 5, 5, Color.RED);
-        view.setTranslateX(xx+IShip.getShipInstance().getView().getBoundsInParent().getWidth()/4);
+        view.setTranslateX(xx + IShip.getShipInstance().getView().getBoundsInParent().getWidth() / 4);
         view.setTranslateY(yy);
         return view;
 
-
-
-//        view.setTranslateX(view.getTranslateX() + velocity.getX());
-//        if (isTouchingLeftBorder() || isTouchingRightBorder()) {
-//            velocity = new Point2D(0, 0);
-//        }
     }
 }

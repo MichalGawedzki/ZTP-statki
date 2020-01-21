@@ -7,8 +7,6 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private Pane root;
-
     public static void main(String[] args) {
         launch();
     }
@@ -19,7 +17,5 @@ public class Main extends Application {
         Game game = Game.getGame();
         game.startApp(stage);
     }
-
-
 
 }

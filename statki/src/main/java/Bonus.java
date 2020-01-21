@@ -12,44 +12,34 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 
-public abstract class Bonus implements IShip{
+public abstract class Bonus implements IShip {
 
 
     protected IShip iShip;
 
-
-
-    public Bonus(IShip iShip)
-    {
-        this.iShip=iShip;
+    public Bonus(IShip iShip) {
+        this.iShip = iShip;
     }
+
     @Override
     public void spawn() {
-
-    iShip.spawn();
-
+        iShip.spawn();
     }
+
     @Override
     public void moveLeft() {
-
         iShip.moveLeft();
     }
 
     @Override
     public void moveRight() {
-
         iShip.moveRight();
     }
 
-
-
     @Override
     public void getInstance() {
-
         iShip.getInstance();
     }
-
-
 
     @Override
     public Node getView() {
@@ -58,8 +48,7 @@ public abstract class Bonus implements IShip{
 
     @Override
     public void setVelocity(double x, double y) {
-
-        iShip.setVelocity(x,y);
+        iShip.setVelocity(x, y);
     }
 
     @Override
@@ -69,7 +58,6 @@ public abstract class Bonus implements IShip{
 
     @Override
     public void setxVelocity(double x) {
-
         iShip.setxVelocity(x);
     }
 
@@ -80,7 +68,6 @@ public abstract class Bonus implements IShip{
 
     @Override
     public void setHP(int HP) {
-
         iShip.setHP(HP);
     }
 
@@ -97,21 +84,16 @@ public abstract class Bonus implements IShip{
     @Override
     public void setWeaponLevel(int weaponLevel) {
         iShip.setWeaponLevel(weaponLevel);
-
     }
+
     @Override
     public void gotHit(int power) {
-
+        iShip.gotHit(power);
     }
 
     @Override
     public IShip undecorate() throws IOException {
         return iShip;
     }
-
-
-
-
-
 
 }

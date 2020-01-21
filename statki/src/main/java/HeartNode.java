@@ -7,9 +7,8 @@ import java.io.IOException;
 public class HeartNode extends BonusNode {
 
 
-    public HeartNode(){
+    public HeartNode() {
 
-//        System.out.println("new HeartNode");
         Image image = new Image("img/heart.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(25);
@@ -17,12 +16,11 @@ public class HeartNode extends BonusNode {
         view = imageView;
 
         view.setTranslateX(Math.random() * (Game.getWIDTH() - view.getBoundsInParent().getWidth()));
-        view.setTranslateY((Math.random() * (Game.getHEIGTH() - view.getBoundsInParent().getHeight())+50)*0.8);
+        view.setTranslateY((Math.random() * (Game.getHEIGTH() - view.getBoundsInParent().getHeight()) + 50) * 0.8);
     }
 
     public Node getView() {
         return view;
     }
-
 
 }

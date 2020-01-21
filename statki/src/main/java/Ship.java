@@ -17,11 +17,9 @@ public class Ship implements IShip {
     private double xVelocity = 2;
     private Node view;
     private Point2D velocity = new Point2D(0, 0);
-    private boolean isAlive;
     private int weaponLevel = 1;
 
     private Ship() throws IOException {
-//        this.view = new Rectangle(WIDTH, HEIGTH, Color.BLUE);
         Image image = new Image("img/ship.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(40);
@@ -80,7 +78,7 @@ public class Ship implements IShip {
         this.velocity = new Point2D(x, y);
     }
 
-    public void setOnlyVelocity(int x, int y){
+    public void setOnlyVelocity(int x, int y) {
         this.velocity = new Point2D(x, y);
     }
 
@@ -103,18 +101,6 @@ public class Ship implements IShip {
         return iBullet;
     }
 
-    private boolean isTouchingRightBorder() {
-        if (view.getTranslateX() >= (Game.getWIDTH() - this.WIDTH)) {
-            return true;
-        } else return false;
-    }
-
-    private boolean isTouchingLeftBorder() {
-        if (view.getTranslateX() <= 0) {
-            return true;
-        } else return false;
-    }
-
     public void spawn() {
 
     }
@@ -124,7 +110,6 @@ public class Ship implements IShip {
     }
 
     public int draw() {
-//        isTouchingBorder()
         view.setTranslateX(view.getTranslateX() + velocity.getX());
         if (Game.isTouchingBorder(view)) {
             velocity = new Point2D(0, 0);
@@ -132,11 +117,7 @@ public class Ship implements IShip {
         return -1;
     }
 
-    public void update() {
-
-    }
-
-    public void gotHit(int power){
+    public void gotHit(int power) {
         this.HP -= power;
     }
 
@@ -144,7 +125,5 @@ public class Ship implements IShip {
     public IShip undecorate() {
         return this;
     }
-
-
 
 }
