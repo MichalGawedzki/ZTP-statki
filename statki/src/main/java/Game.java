@@ -50,8 +50,6 @@ public class Game {
     private Label hpLabel = new Label();
     private int score = 0;
     private int level = 1;
-    private Image background;
-    //    private int weaponLevel = 2;
     private int spawnFrequency = 2500; // time between each spawn in miliseconds
     private LocalTime lastSpawnTime = LocalTime.now();
     private LocalTime timeLocal = LocalTime.now();
@@ -70,9 +68,6 @@ public class Game {
         return bulletFactory;
     }
 
-    private Node view;
-
-
     private Game() throws IOException {
         lastSpawnTime = LocalTime.now();
     }
@@ -81,7 +76,6 @@ public class Game {
         return HEIGTH;
     }
 
-    //private Ranking ranking;
 
     public static int getWIDTH() {
         return WIDTH;
@@ -106,10 +100,6 @@ public class Game {
         return false;
     }
 
-//    public BulletFactory getBulletFactory() {
-//        return bulletFactory;
-//    }
-
 
     public void addShip(IShip ship, double x, double y) {
         ship.getView().setTranslateX(x);
@@ -117,11 +107,6 @@ public class Game {
         root.getChildren().add(ship.getView());
     }
 
-    public void addBullet(IShip ship) {
-//        ship.getBullet().getView().setTranslateX(ship.getView().getTranslateX());
-//        ship.getBullet().getView().setTranslateY(ship.getView().getTranslateY());
-//        root.getChildren().add(iShip.getBullet().getView());
-    }
 
     private void addBullet(Node position) {
         root.getChildren().add(position);
@@ -155,7 +140,6 @@ public class Game {
         timer.stop();
         gameOverText = new Label("GAME OVER\n\nLevel: " + level + "\nScore: " + score + "\n\nPress CTRL to play again\n\n" +
                 "Press ENTER to save your score\nand see the Top 5 Ranking");
-        //  TextField playerName = new TextField();
         playerName.setText("Player");
         gameOverText.setAlignment(Pos.CENTER);
         playerName.setAlignment(Pos.CENTER);
@@ -221,7 +205,6 @@ public class Game {
         if (ChronoUnit.MILLIS.between(lastSpawnTime, LocalTime.now()) > spawnFrequency) {
             Enemy enemy = new Enemy(level);
             enemyList.add(enemy);
-//            root.getChildren().add(enemy.getView());
             root.getChildren().addAll(enemy.getView(), new Text("1"));
             lastSpawnTime = LocalTime.now();
         }
@@ -251,7 +234,6 @@ public class Game {
         HashMap<Node, IBullet> bulletHashMapTMP = new HashMap<>();
         HashMap<Node, IBullet> bulletHashMapTMP2 = new HashMap<>();
         updateLabels();
-//        iShip.draw();
         spawnBonus();
 
         for (Node node : bulletList.keySet()) {
@@ -264,8 +246,6 @@ public class Game {
         for (Node node : bulletList.keySet()) {
             addBullet(node);
         }
-        //   bulletHashMapTMP.clear();
-
 
         for (Node node : enemyBulletList.keySet()) {
             root.getChildren().remove(node);
@@ -344,7 +324,6 @@ public class Game {
     }
 
     private void checkCollisions() throws IOException {
-//        System.out.println(distanceBetween(iShip.getView(), enemyList.get(0).getView()));
         HashMap<Node, IBullet> bulletsTMP = new HashMap<>();
         ArrayList<Enemy> enemiesTMP = new ArrayList<>();
         ArrayList<BonusNode> bonusListTMP = new ArrayList<>();
@@ -363,17 +342,11 @@ public class Game {
                     enemy.gotHit();
                     if (!enemy.isAlive()) {
                         enemiesTMP.add(enemy);
-//                        root.getChildren().remove(enemy.getView());
                     }
                     bulletsTMP.put(node, bulletList.get(node));
                     score += iShip.getBullet().getPower();
                     levelUp();
                 }
-//                if(isCollisionBetween(node, enemy.getView())){
-//                    System.out.println("kolizja");
-//                    bulletsTMP.put(node, bulletList.get(node));
-//                    score++;
-//                }
             }
             for (BonusNode bonusNode : bonusList) {
 
@@ -399,7 +372,6 @@ public class Game {
                 bulletList.remove(node);
             } else
                 enemyBulletList.remove(node);
-//            if(bulletsTMP.get(node).)
             root.getChildren().remove(node);
         }
         for (Enemy enemy : enemiesTMP) {
@@ -416,7 +388,7 @@ public class Game {
 
     private void levelUp() {
 
-        if (score >= level * 10 && score <= level * 20 && level < 7) {
+        if (score >= level * 25 && score <= level * 50 && level < 7) {
             level++;
             iShip.setWeaponLevel(level);
             spawnFrequency *= 0.85;
@@ -429,27 +401,9 @@ public class Game {
         int centerX2 = (int) (n2.getTranslateX() + n2.getBoundsInParent().getWidth()) / 2;
         int centerY1 = (int) (n1.getTranslateY() + n1.getBoundsInParent().getHeight()) / 2;
         int centerY2 = (int) (n2.getTranslateY() + n2.getBoundsInParent().getHeight()) / 2;
-//        System.out.println("centerX1 " + centerX1);
-//        System.out.println("centerX2 " + centerX2);
-//        System.out.println("centerY1 " + centerY1);
-//        System.out.println("centerY2 " + centerY2);
 
         int distance = (int) Math.sqrt(Math.pow(Math.abs(centerX1 - centerX2), 2) + Math.pow(Math.abs(centerY1 - centerY2), 2));
         return distance;
-    }
-
-    private boolean isCollisionBetween(Node n1, Node n2) {
-        double centerX1 = (n1.getTranslateX() + n1.getBoundsInParent().getWidth()) / 2;
-        double centerX2 = (n2.getTranslateX() + n2.getBoundsInParent().getWidth()) / 2;
-        double centerY1 = (n1.getTranslateY() + n1.getBoundsInParent().getHeight()) / 2;
-        double centerY2 = (n2.getTranslateY() + n2.getBoundsInParent().getHeight()) / 2;
-
-        if (Math.abs(centerX1 - centerX2) < ((n1.getBoundsInParent().getWidth()) / 2 + (n2.getBoundsInParent().getWidth()) / 2) &&
-                Math.abs(centerY1 - centerY2) < ((n1.getBoundsInParent().getHeight()) / 2 + (n2.getBoundsInParent().getHeight()) / 2)) {
-            System.out.println("kolizja");
-            return true;
-        }
-        return false;
     }
 
     public void startApp(Stage stage) throws IOException {
@@ -489,7 +443,6 @@ public class Game {
         };
         timer.start();
         checkKeyPressed();
-//        window.show();
     }
 
     private void resetData() {

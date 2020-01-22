@@ -53,4 +53,9 @@ public class ImmortalityDecorator extends Bonus {
         Game.getGame().getRoot().getChildren().remove(immortalityBonusImage);
         return super.undecorate();
     }
+
+    @Override
+    public void gotHit(int power) {
+
+    }
 }

@@ -52,7 +52,7 @@ public class Ship implements IShip {
     }
 
     public void setHP(int HP) {
-        this.HP = HP;
+        this.HP = HP > 50 ? 50 : HP;
     }
 
     @Override
